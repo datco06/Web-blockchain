@@ -8,9 +8,8 @@ interface SidebarProps {
 
 const menuItems = [
 	{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard', href: '/buyer' },
-	{ key: 'active', label: 'Active Jobs', icon: 'briefcase', href: '#' },
+	{ key: 'active', label: 'Active Jobs', icon: 'briefcase', href: '/buyer/post-job' },
 	{ key: 'projects', label: 'Project Management', icon: 'project', href: '/buyer/projects' },
-	{ key: 'escrow', label: 'Escrow', icon: 'wallet', href: '/buyer/escrow' },
 	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
 	{ key: 'freelancers', label: 'Freelancers', icon: 'users', href: '/buyer/freelancers' },
 ];
@@ -80,7 +79,7 @@ const Sidebar = ({ active = 'dashboard' }: SidebarProps) => {
 				<div className='brand-icon'>TF</div>
 				<strong>TrustFlow</strong>
 			</div>
-			
+
 			<div className='sidebar-menu'>
 				<p className='menu-heading'>Main Menu</p>
 				<Menu
