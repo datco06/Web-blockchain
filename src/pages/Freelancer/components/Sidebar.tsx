@@ -1,17 +1,19 @@
+import { ConfigProvider, Layout, Menu } from 'antd';
+import type { MenuProps } from 'antd';
+import type { ConfigProviderProps } from 'antd/lib/config-provider';
+import type { ReactNode } from 'react';
 import './Sidebar.less';
+
+const { Sider } = Layout;
 
 interface SidebarProps {
 	active?: string;
+	appearance?: 'light' | 'dark';
 }
 
-const menuItems = [
-	{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard', href: '/freelancer' },
-	{ key: 'profile', label: 'Profile', icon: 'profile', href: '/freelancer/profile' },
-	{ key: 'earnings', label: 'Earnings', icon: 'wallet', href: '/freelancer/earnings' },
-	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
-];
+type IconName = 'dashboard' | 'profile' | 'briefcase' | 'wallet' | 'message' | 'settings';
 
-const iconMap: Record<string, JSX.Element> = {
+const iconMap: Record<IconName, ReactNode> = {
 	dashboard: (
 		<svg viewBox='0 0 24 24'>
 			<path d='M3 13h7V3H3zm11 8h7v-8h-7zM3 21h7v-6H3zm11-10h7V3h-7z' />
@@ -50,32 +52,85 @@ const iconMap: Record<string, JSX.Element> = {
 	),
 };
 
-const Sidebar = ({ active = 'dashboard' }: SidebarProps) => (
-	<div className='sidebar'>
-		<div className='sidebar-brand'>
-			<div className='brand-icon'>TF</div>
-			<strong>TrustFlow</strong>
-		</div>
-		<nav className='sidebar-menu'>
-			<p className='menu-heading'>Main Menu</p>
-			{menuItems.map((item) => (
-				<a
-					key={item.key}
-					className={active === item.key ? 'menu-item active' : 'menu-item'}
-					href={item.href}
+type MenuItem = {
+	key: string;
+	label: string;
+	icon: IconName;
+	href: string;
+};
+
+const menuItems: MenuItem[] = [
+	{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard', href: '/freelancer' },
+	{ key: 'profile', label: 'Profile', icon: 'profile', href: '/freelancer/profile' },
+	{ key: 'earnings', label: 'Earnings', icon: 'wallet', href: '/freelancer/earnings' },
+	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
+];
+
+const Sidebar = ({ active = 'dashboard', appearance = 'dark' }: SidebarProps) => {
+	const themeConfig: ConfigProviderProps['theme'] =
+		appearance === 'dark'
+			? {
+					primaryColor: '#2563eb',
+					infoColor: '#94a3b8',
+					successColor: '#22c55e',
+					warningColor: '#f97316',
+					errorColor: '#ef4444',
+			  }
+			: {
+					primaryColor: '#2563eb',
+					infoColor: '#475569',
+					successColor: '#16a34a',
+					warningColor: '#d97706',
+					errorColor: '#dc2626',
+			  };
+
+	const items: MenuProps['items'] = menuItems.map((item) => ({
+		key: item.key,
+		icon: iconMap[item.icon],
+		label: item.label,
+	}));
+
+	const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+		const target = menuItems.find((item) => item.key === key);
+		if (target?.href) {
+			window.location.href = target.href;
+		}
+	};
+
+	return (
+		<ConfigProvider theme={themeConfig}>
+			<Layout hasSider className='sidebar-layout'>
+				<Sider
+					width={264}
+					breakpoint='lg'
+					collapsedWidth={84}
+					theme={appearance}
+					className={`sidebar ${appearance}`}
 				>
-					<span className={`menu-icon ${item.icon}`}>{iconMap[item.icon]}</span>
-					<span>{item.label}</span>
-				</a>
-			))}
-		</nav>
-		<div className='sidebar-spacer' />
-		<div className='sidebar-upgrade'>
-			<h4>Upgrade to Pro</h4>
-			<p>Get 0% service fees and priority bidding.</p>
-			<button>Go Pro Now</button>
-		</div>
-	</div>
-);
+					<div className='sidebar-brand'>
+						<div className='brand-icon'>TF</div>
+						<strong>TrustFlow</strong>
+					</div>
+					<div className='sidebar-menu'>
+						<p className='menu-heading'>Main Menu</p>
+						<Menu
+							mode='inline'
+							theme={appearance}
+							items={items}
+							selectedKeys={[active]}
+							onClick={handleMenuClick}
+						/>
+					</div>
+					<div className='sidebar-spacer' />
+					<div className='sidebar-upgrade'>
+						<h4>Upgrade to Pro</h4>
+						<p>Get 0% service fees and priority bidding.</p>
+						<button>Go Pro Now</button>
+					</div>
+				</Sider>
+			</Layout>
+		</ConfigProvider>
+	);
+};
 
 export default Sidebar;

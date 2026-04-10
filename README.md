@@ -1,36 +1,24 @@
-# WEB BASE V3
+# 🚀 TrustFlow - Web3 Freelance Marketplace with AI-Guided Escrow
 
-## Web base v3 based on:
+**TrustFlow** là một nền tảng trung gian kết nối Freelancer và Buyer, ứng dụng sức mạnh của **Trí tuệ nhân tạo (AI)** để quản lý công việc và **Smart Contract (Blockchain)** để đảm bảo an toàn thanh toán.
 
-- React 17, umijs, antd v4
-- TypeScript
-- SSO with Keycloak
-- Back-end: NestJS, PostgreSQL
+---
 
-This project is initialized with [Web Base](https://pro.ant.design). Follow is the quick guide for how to use.
+## 🌟 Tính năng cốt lõi (Key Features)
 
-## Environment Prepare
+- **AI-Guided Task Splitting**: Tự động phân tích mô tả dự án và chia nhỏ thành các Milestone (Task) kèm ngân sách đề xuất.
+- **AI Content Guardrail**: Tự động phát hiện và chặn các yêu cầu công việc vi phạm chính sách (Hack, Botnet, v.v.).
+- **Smart Contract Escrow**: Tiền (ETH) được khóa an toàn trên Blockchain và chỉ giải ngân khi Buyer phê duyệt kết quả.
+- **Role-based Dashboards**: Giao diện riêng biệt, hiện đại cho Buyer, Freelancer và Admin (với đường dẫn bảo mật).
+- **Reputation System**: Hệ thống báo cáo (3 lần vi phạm sẽ bị khóa) và đánh giá độ uy tín sau mỗi dự án.
 
-Install `node_modules`:
+---
 
-```bash
-yarn
-```
+## 🛠 Công nghệ sử dụng (Tech Stack)
 
-## Provided Scripts
+- **Frontend**: [UmiJS 3](https://umijs.org/), [Ant Design 5](https://ant.design/), TypeScript.
+- **Blockchain**: Solidity, Ethers.js, Hardhat (mạng Sepolia Testnet).
+- **AI**: Google Gemini API / OpenAI API.
+- **Styling**: Less, Tailwind CSS.
 
-RIPT S-Link provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-yarn start
-```
-
-### Build project
-
-```bash
-yarn build
-```
+---

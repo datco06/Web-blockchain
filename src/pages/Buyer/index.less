@@ -149,32 +149,46 @@
 }
 
 .project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  .ant-list-items {
+    display: flex;
+    flex-direction: column;
+    /* We don't need gap here anymore since we moved it to marginBottom on the List.Item style */
+  }
+
+  .ant-list-item {
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 0;
+  }
 }
 
 .project-card {
   border: 1px solid #e5e9f5;
-  border-radius: 26px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  background: #fff;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 
   h3 { margin: 0; color: #101936; font-size: 18px; }
-  p { margin: 4px 0 0; color: #6a7696; }
 }
 
 .project-header {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 16px;
+  align-items: flex-start;
 
   .project-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 15px;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
     background: #eef2ff;
     display: inline-flex;
     align-items: center;
@@ -188,17 +202,52 @@
       fill: none;
     }
   }
+}
 
-  .status {
-    margin-left: auto;
-    padding: 6px 12px;
+.project-header-content {
+  flex: 1;
+}
+
+.project-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  h3 { flex: 1; }
+
+  .ant-tag {
     border-radius: 999px;
-    font-size: 12px;
+    padding: 2px 12px;
     font-weight: 600;
   }
+}
 
-  .status.in-progress { background: rgba(14, 199, 149, 0.15); color: #0c9d7b; }
-  .status.revision { background: rgba(255, 185, 71, 0.2); color: #d67a00; }
+.project-freelancer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  p {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    color: #8a95b7;
+  }
+
+  strong {
+    display: block;
+    margin-top: 2px;
+    color: #101936;
+  }
+}
+
+.project-avatar {
+  background: #eef2ff;
+  color: #4c5b86;
+  font-weight: 600;
+  border-radius: 14px;
 }
 
 .project-meta {
@@ -208,14 +257,14 @@
   font-size: 14px;
 }
 
-.progress {
-  height: 10px;
-  border-radius: 999px;
-  background: #edf0f8;
+.project-progress {
+  .ant-progress-inner {
+    background: #edf0f8;
+    border-radius: 999px;
+  }
 
-  .bar {
-    height: 100%;
-    border-radius: inherit;
+  .ant-progress-bg {
+    border-radius: 999px;
     background: linear-gradient(135deg, #19b9ff, #005bff);
   }
 }

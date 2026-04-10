@@ -31,6 +31,32 @@
   }
 }
 
+.sidebar.dark {
+  background: #0b1120;
+  border-right-color: rgba(148, 163, 184, 0.15);
+
+  .sidebar-brand strong {
+    color: #f8fafc;
+  }
+
+  .menu-heading {
+    color: rgba(148, 163, 184, 0.85);
+  }
+
+  .ant-menu {
+    color: #cbd5f5;
+  }
+
+  .ant-menu-item {
+    color: #cbd5f5;
+
+    .ant-menu-item-icon {
+      background: rgba(148, 163, 184, 0.12);
+      color: #cbd5f5;
+    }
+  }
+}
+
 .sidebar-menu {
   display: flex;
   flex-direction: column;
@@ -44,31 +70,25 @@
     font-weight: 600;
   }
 
-  .menu-item {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    border-radius: 16px;
-    padding: 12px 14px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #42506b;
+  .ant-menu {
     background: transparent;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
+    border-inline-end: none !important;
+  }
 
-    .menu-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 10px;
-      background: rgba(15, 23, 42, 0.06);
+  .ant-menu-item {
+    border-radius: 14px;
+    margin-inline: 0;
+    margin-block: 2px;
+    font-weight: 600;
+
+    .ant-menu-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #4a5e83;
-      font-size: 14px;
+      background: rgba(15, 23, 42, 0.06);
 
       svg {
         width: 16px;
@@ -79,21 +99,6 @@
         stroke-linecap: round;
         stroke-linejoin: round;
       }
-    }
-
-    &:hover {
-      background: #e7eefc;
-    }
-  }
-
-  .menu-item.active {
-    background: linear-gradient(135deg, #147bff, #0055ff);
-    color: #fff;
-    box-shadow: 0 15px 30px rgba(9, 74, 210, 0.25);
-
-    .menu-icon {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
     }
   }
 }

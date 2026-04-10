@@ -1,13 +1,52 @@
 @import '../../Freelancer/components/Sidebar.less';
 
-.buyer-sidebar .sidebar-brand {
-  justify-content: flex-start;
-}
+.buyer-sidebar {
+  .sidebar-brand {
+    justify-content: flex-start;
+  }
 
-.buyer-sidebar .sidebar-upgrade h4 {
-  font-size: 17px;
-}
+  .sidebar-upgrade h4 {
+    font-size: 17px;
+  }
 
-.buyer-sidebar .sidebar-upgrade button {
-  background: linear-gradient(135deg, #12d8fa, #0060ff);
+  .sidebar-upgrade button {
+    background: linear-gradient(135deg, #12d8fa, #0060ff);
+  }
+
+  /* Override ant menu active color to match the "Improved" design: Solid blue with glow */
+  .ant-menu-item-selected {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #147bff, #0055ff) !important;
+    box-shadow: 0 6px 16px rgba(0, 85, 255, 0.3) !important;
+    font-weight: 600;
+  }
+
+  /* No right border marker needed, we have a full solid background */
+  .ant-menu-item-selected::after {
+    display: none !important;
+  }
+
+  /* Remove icon wrapper background when active so it blends with blue */
+  .ant-menu-item-selected .ant-menu-item-icon {
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+
+  .ant-menu-item:hover:not(.ant-menu-item-selected) {
+    color: #147bff !important;
+    background: rgba(20, 123, 255, 0.04) !important;
+  }
+
+  /* Ensure custom svg icons render beautifully as line-art (like Lucide) */
+  .custom-svg-icon {
+    width: 1em;
+    height: 1em;
+    font-size: 16px;
+    vertical-align: -0.125em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 }

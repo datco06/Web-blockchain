@@ -1,30 +1,37 @@
 .summary-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  width: 100%;
 }
 
 .summary-card {
-  position: relative;
-  border-radius: 28px;
-  background: #fff;
-  padding: 20px;
-  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  border: none;
+  background: #ffffff;
+  border-radius: 16px !important;
 }
 
-.card-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+.ant-statistic {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ant-statistic-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: rgba(15, 23, 42, 0.06);
+
   svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     stroke: currentColor;
     stroke-width: 1.6;
     fill: none;
@@ -33,37 +40,19 @@
   }
 }
 
-.card-icon.earnings {
+.stat-icon.earnings {
   background: rgba(45, 191, 104, 0.18);
   color: #20a869;
 }
 
-.card-icon.deals {
+.stat-icon.deals {
   background: rgba(69, 149, 255, 0.18);
   color: #3477ff;
 }
 
-.card-icon.escrow {
+.stat-icon.escrow {
   background: rgba(255, 177, 99, 0.2);
   color: #f48a1f;
-}
-
-.card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.card-label {
-  font-size: 14px;
-  color: #6a768f;
-  font-weight: 600;
-}
-
-.card-value {
-  font-size: 24px;
-  color: #111936;
 }
 
 .card-badge {
@@ -71,6 +60,9 @@
   font-weight: 600;
   padding: 6px 10px;
   border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 18px;
 }
 
 .card-badge.positive {
@@ -88,14 +80,9 @@
   background: rgba(214, 122, 0, 0.15);
 }
 
-@media (max-width: 960px) {
-  .summary-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .summary-cards {
-    grid-template-columns: 1fr;
+.summary-card.pending {
+  .stat-icon {
+    background: rgba(255, 177, 99, 0.18);
+    color: #f48a1f;
   }
 }
