@@ -1,0 +1,7 @@
+<svg width="360" height="260" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="260" rx="50" fill="#e6f0ff" />
+  <rect x="80" y="62" width="200" height="24" rx="12" fill="#afcafe" />
+  <rect x="80" y="102" width="160" height="24" rx="12" fill="#c6d9ff" />
+  <rect x="80" y="142" width="120" height="24" rx="12" fill="#d8e6ff" />
+  <text x="80" y="198" font-family="'Inter','Segoe UI',sans-serif" font-size="42" font-weight="600" fill="#0c56c0">$12,400</text>
+</svg>

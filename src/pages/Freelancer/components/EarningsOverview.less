@@ -1,0 +1,40 @@
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.chart-card select {
+  border: 1px solid #e1e7f5;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #f6f8fc;
+  font-weight: 600;
+  color: #3d4a67;
+}
+
+.chart-bars {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+  align-items: end;
+  height: 220px;
+}
+
+.chart-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.chart-bar .bar {
+  width: 32px;
+  border-radius: 16px 16px 6px 6px;
+  background: linear-gradient(180deg, #90c7ff, #1a6dff);
+}
+
+.chart-bar span {
+  font-size: 12px;
+  color: #8b95b1;
+}

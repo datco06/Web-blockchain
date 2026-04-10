@@ -1,0 +1,146 @@
+.portfolio-card {
+  background: #fff;
+  border-radius: 30px;
+  padding: 28px 32px;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 { margin: 0; font-size: 22px; color: #111936; }
+
+  .add-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #1f7bff;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #e4e9f5;
+  background: #f8f9fc;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-thumb {
+  width: 100%;
+  height: 180px;
+  background: #eef2fb;
+  background-size: cover;
+  background-position: center;
+}
+
+.project-thumb.lumina {
+  background-image: linear-gradient(135deg, #003b4a, #52c194);
+}
+
+.project-thumb.cloudsync {
+  background-image: linear-gradient(135deg, #f5f7fb, #dfe8f9);
+}
+
+.project-info {
+  padding: 16px 18px;
+  background: #eef2fb;
+}
+
+.project-info h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #111936;
+}
+
+.project-info p {
+  margin: 0;
+  color: #6d7694;
+  font-size: 14px;
+}
+
+.portfolio-empty {
+  border: 1px dashed #dfe3f4;
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  color: #7f89a3;
+  font-weight: 600;
+}
+
+.project-form {
+  border: 1px solid #dfe3f4;
+  border-radius: 24px;
+  padding: 20px;
+  background: #f8faff;
+}
+
+.project-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: #121a3c;
+}
+
+.project-form input {
+  border-radius: 16px;
+  border: 1px solid #cfd7ef;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.project-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.form-actions .ghost,
+.form-actions .primary {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-actions .ghost {
+  background: rgba(17, 25, 54, 0.08);
+  color: #111936;
+}
+
+.form-actions .primary {
+  background: linear-gradient(135deg, #19b9ff, #0060ff);
+  color: #fff;
+  box-shadow: 0 14px 26px rgba(0, 96, 255, 0.3);
+}

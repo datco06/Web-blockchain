@@ -1,0 +1,101 @@
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.summary-card {
+  position: relative;
+  border-radius: 28px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.card-icon.earnings {
+  background: rgba(45, 191, 104, 0.18);
+  color: #20a869;
+}
+
+.card-icon.deals {
+  background: rgba(69, 149, 255, 0.18);
+  color: #3477ff;
+}
+
+.card-icon.escrow {
+  background: rgba(255, 177, 99, 0.2);
+  color: #f48a1f;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-label {
+  font-size: 14px;
+  color: #6a768f;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 24px;
+  color: #111936;
+}
+
+.card-badge {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.card-badge.positive {
+  color: #0c8a4b;
+  background: rgba(12, 138, 75, 0.12);
+}
+
+.card-badge.steady {
+  color: #5a6c91;
+  background: rgba(90, 108, 145, 0.15);
+}
+
+.card-badge.pending {
+  color: #d67a00;
+  background: rgba(214, 122, 0, 0.15);
+}
+
+@media (max-width: 960px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}

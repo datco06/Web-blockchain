@@ -1,0 +1,30 @@
+<svg width="880" height="520" viewBox="0 0 880 520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dashBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7698a3" />
+      <stop offset="100%" stop-color="#5b7d87" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfefe" />
+      <stop offset="100%" stop-color="#eef4f6" />
+    </linearGradient>
+  </defs>
+  <rect width="880" height="520" fill="url(#dashBg)" rx="30" />
+  <rect x="140" y="150" width="600" height="260" rx="26" fill="url(#cardBg)" />
+  <rect x="170" y="182" width="540" height="36" rx="12" fill="#e4ebef" />
+  <rect x="170" y="232" width="520" height="146" rx="12" fill="#f8fbfc" />
+  <g fill="#7aa4b0" opacity="0.85">
+    <rect x="210" y="266" width="40" height="90" rx="6" />
+    <rect x="272" y="242" width="40" height="114" rx="6" />
+    <rect x="334" y="254" width="40" height="102" rx="6" />
+    <rect x="396" y="232" width="40" height="124" rx="6" />
+    <rect x="458" y="248" width="40" height="108" rx="6" />
+    <rect x="520" y="260" width="40" height="96" rx="6" />
+  </g>
+  <rect x="610" y="210" width="70" height="24" rx="12" fill="#d7e1e5" />
+  <circle cx="610" cy="336" r="74" fill="#fefefe" />
+  <path d="M610 262 a74 74 0 1 1 -63.6 37.1" fill="none" stroke="#f8c6ab" stroke-width="28" />
+  <path d="M610 262 A74 74 0 0 1 677 336" fill="none" stroke="#6fb4ff" stroke-width="28" stroke-linecap="round" />
+  <circle cx="610" cy="336" r="48" fill="#f5f8fb" />
+  <text x="610" y="346" font-family="'Inter', 'Segoe UI', sans-serif" font-size="32" font-weight="600" fill="#48637b" text-anchor="middle">8%</text>
+</svg>
