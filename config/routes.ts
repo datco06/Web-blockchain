@@ -1,4 +1,4 @@
-﻿export default [
+export default [
 	{
 		path: '/',
 		component: './index',
@@ -74,7 +74,7 @@
 		layout: false,
 	},
 	{
-		path: '/buyer/view-profile',
+		path: '/buyer/view-profile/:id',
 		component: './Buyer/view-profile',
 		layout: false,
 	},

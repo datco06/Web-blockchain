@@ -18,7 +18,7 @@ const ProjectDetail = () => {
 
     const handleViewProfile = (freelancer: any) => {
         history.push({
-            pathname: '/buyer/view-profile',
+            pathname: `/buyer/view-profile/${freelancer.id}`,
             state: { freelancer, project }
         });
     };
@@ -60,9 +60,9 @@ const ProjectDetail = () => {
     }
 
     const appliedFreelancers = [
-        { name: 'Alex Johnson', role: 'Fullstack Dev', rate: '$45/hr', rating: 4.9, reviews: 32, avatar: 'A' },
-        { name: 'Maria Garcia', role: 'UI/UX Designer', rate: '$55/hr', rating: 5.0, reviews: 15, avatar: 'M' },
-        { name: 'Chen Wei', role: 'Backend Expert', rate: '$40/hr', rating: 4.8, reviews: 124, avatar: 'C' },
+        { id: '1', name: 'Alex Johnson', role: 'Fullstack Dev', rate: '$45/hr', rating: 4.9, reviews: 32, avatar: 'A' },
+        { id: '2', name: 'Maria Garcia', role: 'UI/UX Designer', rate: '$55/hr', rating: 5.0, reviews: 15, avatar: 'M' },
+        { id: '3', name: 'Chen Wei', role: 'Backend Expert', rate: '$40/hr', rating: 4.8, reviews: 124, avatar: 'C' },
     ];
 
     return (

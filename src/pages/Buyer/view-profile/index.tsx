@@ -1,30 +1,35 @@
-import { useLocation, history } from 'umi';
-import { 
-    ArrowLeftOutlined, 
-    StarFilled, 
-    CalendarOutlined, 
-    CheckCircleFilled, 
-    MailOutlined, 
-    PhoneOutlined, 
-    IdcardOutlined, 
+import { useState } from 'react';
+import { useLocation, history, useParams } from 'umi';
+import {
+    ArrowLeftOutlined,
+    StarFilled,
+    CalendarOutlined,
+    CheckCircleFilled,
+    MailOutlined,
+    PhoneOutlined,
+    IdcardOutlined,
     CreditCardOutlined,
     ShareAltOutlined,
     CommentOutlined,
     AppstoreOutlined,
     SolutionOutlined,
-    TranslationOutlined
+    TranslationOutlined,
+    MessageOutlined
 } from '@ant-design/icons';
-import { Button, Avatar, Divider } from 'antd';
+import { Button, Avatar, Divider, Modal, message } from 'antd';
 import '../index.less';
 import TopBar from '../components/topbar';
 import Sidebar from '../components/sidebar';
 import './index.less';
 
 const ViewProfile = () => {
+    const { id } = useParams<{ id: string }>();
     const location = useLocation();
     const freelancer = (location.state as any)?.freelancer;
     const project = (location.state as any)?.project;
     const from = (location.state as any)?.from;
+
+    const [isContactModalVisible, setIsContactModalVisible] = useState(false);
 
     const handleBack = () => {
         if (from === 'freelancers') {
@@ -37,8 +42,32 @@ const ViewProfile = () => {
         }
     };
 
+    const handleContactAction = (type: 'chat' | 'email' | 'phone') => {
+        switch (type) {
+            case 'chat':
+                history.push({
+                    pathname: '/buyer/messages',
+                    state: { selectedId: (freelancerData as any).id || 1 }
+                });
+                break;
+            case 'email':
+                window.location.href = `mailto:alex@example.com?subject=Contact from Blockchain Platform`;
+                break;
+            case 'phone':
+                window.location.href = `tel:+1234567890`;
+                break;
+        }
+        setIsContactModalVisible(false);
+    };
+
+    const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href);
+        message.success('Contact link copied to clipboard!');
+    };
+
     // Rich Mock Data for Wow factor
     const defaultData = {
+        id: 1,
         name: 'Alex Rivera',
         username: '@arivera_design',
         role: 'Senior Product Designer & Brand Strategist',
@@ -87,14 +116,23 @@ const ViewProfile = () => {
                         </div>
                     </div>
 
-                    {/* MAIN CONTENT GRID */}
+                    { }
                     <div className='profile-main-area'>
 
-                        {/* LEFT COLUMN */}
+                        { }
                         <div className='profile-sidebar-content'>
                             <div className='action-buttons'>
-                                <Button type="primary" size="large" className='contact-btn'>Contact Me</Button>
-                                <button className='share-btn'><ShareAltOutlined rev="" /></button>
+                                <Button
+                                    type="primary"
+                                    size="large"
+                                    className='contact-btn'
+                                    onClick={() => setIsContactModalVisible(true)}
+                                >
+                                    Contact Me
+                                </Button>
+                                <button className='share-btn' onClick={handleShare}>
+                                    <ShareAltOutlined rev="" />
+                                </button>
                             </div>
 
                             <div className='verification-box'>
@@ -229,6 +267,43 @@ const ViewProfile = () => {
                         </div>
                     </div>
                 </div>
+
+                <Modal
+                    title={<div style={{ textAlign: 'center', fontSize: '1.5rem', marginBottom: '20px' }}>Contact {freelancerData.name}</div>}
+                    visible={isContactModalVisible}
+                    onCancel={() => setIsContactModalVisible(false)}
+                    footer={null}
+                    centered
+                    width={400}
+                    className="contact-modal"
+                >
+                    <div className="contact-options-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
+                        <Button
+                            icon={<MessageOutlined rev="" />}
+                            size="large"
+                            style={{ height: '60px', display: 'flex', alignItems: 'center', fontSize: '1.1rem' }}
+                            onClick={() => handleContactAction('chat')}
+                        >
+                            Chat via Messages
+                        </Button>
+                        <Button
+                            icon={<MailOutlined rev="" />}
+                            size="large"
+                            style={{ height: '60px', display: 'flex', alignItems: 'center', fontSize: '1.1rem' }}
+                            onClick={() => handleContactAction('email')}
+                        >
+                            Send Email
+                        </Button>
+                        <Button
+                            icon={<PhoneOutlined rev="" />}
+                            size="large"
+                            style={{ height: '60px', display: 'flex', alignItems: 'center', fontSize: '1.1rem' }}
+                            onClick={() => handleContactAction('phone')}
+                        >
+                            Call via Phone
+                        </Button>
+                    </div>
+                </Modal>
             </main>
         </div>
     );

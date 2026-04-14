@@ -6,6 +6,7 @@ import Sidebar from '../components/sidebar';
 import TopBar from '../components/topbar';
 
 interface Talent {
+    id: string;
     name: string;
     role: string;
     bid: string;
@@ -18,6 +19,7 @@ interface Talent {
 
 const aiTopFreelancers: Talent[] = [
     {
+        id: '1',
         name: 'Alex Rivera',
         role: 'Senior UI Designer',
         bid: '$1,200',
@@ -28,6 +30,7 @@ const aiTopFreelancers: Talent[] = [
         avatar: 'AR',
     },
     {
+        id: '2',
         name: 'Taylor Chen',
         role: 'Product Architect',
         bid: '$1,500',
@@ -38,6 +41,7 @@ const aiTopFreelancers: Talent[] = [
         avatar: 'TC',
     },
     {
+        id: '3',
         name: 'Jordan Smith',
         role: 'UX Researcher',
         bid: '$950',
@@ -48,6 +52,7 @@ const aiTopFreelancers: Talent[] = [
         avatar: 'JS',
     },
     {
+        id: '4',
         name: 'Morgan Lee',
         role: 'UI Specialist',
         bid: '$1,100',
@@ -68,7 +73,7 @@ const FreelancerFinder = () => {
 
     const handleView = (talent: any) => {
         history.push({
-            pathname: '/buyer/view-profile',
+            pathname: `/buyer/view-profile/${talent.id}`,
             state: { 
                 freelancer: {
                     ...talent,

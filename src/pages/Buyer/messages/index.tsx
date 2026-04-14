@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'umi';
+import moment from 'moment';
 import {
     SearchOutlined,
     SendOutlined,
@@ -15,7 +17,8 @@ import TopBar from '../components/topbar';
 
 interface Message {
     id: number;
-    text: string;
+    text?: string;
+    image?: string;
     sender: 'me' | 'them';
     time: string;
 }
@@ -27,6 +30,7 @@ interface Conversation {
     lastMsg: string;
     time: string;
     online: boolean;
+    lastActive?: string;
     messages: Message[];
 }
 
@@ -38,6 +42,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
         lastMsg: 'mình đã nhắn r bn nhé',
         time: '10:45 AM',
         online: true,
+        lastActive: new Date().toISOString(),
         messages: [
             { id: 1, text: 'bạn tuyển đồng đội làm aff đúng không ạ', sender: 'me', time: '10:00 AM' },
             { id: 2, text: 'mình cũng đang tìm hiểu bạn có thể cho mình tham gia cùng với ạ', sender: 'me', time: '10:01 AM' },
@@ -52,6 +57,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
         lastMsg: 'The project roadmap looks great!',
         time: 'Yesterday',
         online: false,
+        lastActive: new Date(Date.now() - 1000 * 60 * 45).toISOString(), // 45 minutes ago
         messages: [
             { id: 1, text: 'Hey, have you seen the new technical requirements?', sender: 'them', time: 'Yesterday' },
             { id: 2, text: 'Yes, looking at them now. The project roadmap looks great!', sender: 'me', time: 'Yesterday' },
@@ -63,7 +69,8 @@ const MOCK_CONVERSATIONS: Conversation[] = [
         avatar: 'JS',
         lastMsg: 'Can we schedule a call for tomorrow?',
         time: '9:30 AM',
-        online: true,
+        online: false,
+        lastActive: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(), // 2 days ago
         messages: [
             { id: 1, text: 'Can we schedule a call for tomorrow?', sender: 'them', time: '9:30 AM' },
         ]
@@ -71,10 +78,16 @@ const MOCK_CONVERSATIONS: Conversation[] = [
 ];
 
 const Messages = () => {
-    const [selectedId, setSelectedId] = useState<number>(1);
+    const location = useLocation();
+    const [selectedId, setSelectedId] = useState<number>((location.state as any)?.selectedId || 1);
     const [inputText, setInputText] = useState('');
-    const [conversations, setConversations] = useState<Conversation[]>(MOCK_CONVERSATIONS);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [conversations, setConversations] = useState<Conversation[]>(() => {
+        const saved = localStorage.getItem('buyer_conversations');
+        return saved ? JSON.parse(saved) : MOCK_CONVERSATIONS;
+    });
     const scrollRef = useRef<HTMLDivElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const activeConvo = conversations.find(c => c.id === selectedId);
 
@@ -83,6 +96,32 @@ const Messages = () => {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [selectedId, conversations]);
+
+    useEffect(() => {
+        localStorage.setItem('buyer_conversations', JSON.stringify(conversations));
+    }, [conversations]);
+
+    const filteredConversations = conversations.filter(c =>
+        c.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const getOnlineStatus = (convo: Conversation) => {
+        if (convo.online) return 'Active now';
+        if (!convo.lastActive) return 'Offline';
+
+        const lastActive = moment(convo.lastActive);
+        const now = moment();
+        const diffMinutes = now.diff(lastActive, 'minutes');
+        const diffHours = now.diff(lastActive, 'hours');
+
+        if (diffMinutes < 60) {
+            return `Active ${diffMinutes}m ago`;
+        } else if (diffHours < 24) {
+            return `Active ${diffHours}h ago`;
+        } else {
+            return `Last active on ${lastActive.format('MMM D, YYYY')}`;
+        }
+    };
 
     const handleSendMessage = () => {
         if (!inputText.trim() || !activeConvo) return;
@@ -110,6 +149,40 @@ const Messages = () => {
         setInputText('');
     };
 
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file || !activeConvo) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const base64Image = event.target?.result as string;
+            
+            const newMessage: Message = {
+                id: Date.now(),
+                image: base64Image,
+                sender: 'me',
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            const updatedConvos = conversations.map(c => {
+                if (c.id === selectedId) {
+                    return {
+                        ...c,
+                        messages: [...c.messages, newMessage],
+                        lastMsg: 'Sent an image',
+                        time: 'Just now'
+                    };
+                }
+                return c;
+            });
+
+            setConversations(updatedConvos);
+        };
+        reader.readAsDataURL(file);
+        // Reset input value to allow the same file to be selected again
+        e.target.value = '';
+    };
+
     return (
         <div className='buyer-shell'>
             <Sidebar active='messages' />
@@ -124,11 +197,16 @@ const Messages = () => {
                                 <h2>Chats</h2>
                                 <div className='search-box'>
                                     <SearchOutlined rev="" />
-                                    <input type='text' placeholder='Search conversations...' />
+                                    <input 
+                                        type='text' 
+                                        placeholder='Search conversations...' 
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
                                 </div>
                             </div>
                             <div className='conversations'>
-                                {conversations.map(convo => (
+                                {filteredConversations.map(convo => (
                                     <div
                                         key={convo.id}
                                         className={`convo-item ${selectedId === convo.id ? 'active' : ''}`}
@@ -158,23 +236,23 @@ const Messages = () => {
                                         <div className='avatar-small'>{activeConvo.avatar}</div>
                                         <div className='details'>
                                             <h3>{activeConvo.name}</h3>
-                                            <span>{activeConvo.online ? 'Active now' : 'Offline'}</span>
+                                            <span>{getOnlineStatus(activeConvo)}</span>
                                         </div>
                                     </div>
-                                    <div className='header-actions'>
-                                        <button><PhoneOutlined rev="" /></button>
-                                        <button><VideoCameraOutlined rev="" /></button>
 
-                                    </div>
                                 </div>
 
                                 <div className='chat-history' ref={scrollRef}>
                                     <div className='date-divider'>
-                                        <span>TODAY</span>
+                                        <span>{new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
                                     </div>
                                     {activeConvo.messages.map(msg => (
-                                        <div key={msg.id} className={`msg ${msg.sender === 'me' ? 'sent' : 'received'}`}>
-                                            {msg.text}
+                                        <div key={msg.id} className={`msg ${msg.sender === 'me' ? 'sent' : 'received'} ${msg.image ? 'has-image' : ''}`}>
+                                            {msg.image ? (
+                                                <img src={msg.image} alt="Sent" className='msg-image' />
+                                            ) : (
+                                                msg.text
+                                            )}
                                             <div className='msg-time'>{msg.time}</div>
                                         </div>
                                     ))}
@@ -182,7 +260,16 @@ const Messages = () => {
 
                                 <div className='chat-input-area'>
                                     <div className='input-wrapper'>
-                                        <button className='attach-btn'><PlusOutlined rev="" /></button>
+                                        <button className='attach-btn' onClick={() => fileInputRef.current?.click()}>
+                                            <PlusOutlined rev="" />
+                                        </button>
+                                        <input 
+                                            type='file' 
+                                            accept='image/*' 
+                                            style={{ display: 'none' }} 
+                                            ref={fileInputRef}
+                                            onChange={handleImageUpload}
+                                        />
 
                                         <input
                                             type='text'
