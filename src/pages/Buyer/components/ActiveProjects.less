@@ -1,0 +1,113 @@
+.project-card-v2 {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+}
+
+.project-main-info {
+    flex: 1;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.project-title-v2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s;
+    
+    &:hover {
+        color: #2563eb;
+    }
+}
+
+.project-meta-v2 {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.project-description-snippet {
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.project-tags-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    
+    .tag-link {
+        color: #2563eb;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.project-side-info {
+    width: 180px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.budget-box {
+    strong {
+        display: block;
+        font-size: 20px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    span {
+        font-size: 13px;
+        color: #64748b;
+    }
+}
+
+.bids-info, .duration-info {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.duration-info {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    
+    .deadline-label {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 400;
+    }
+    
+    .deadline-value {
+        color: #ef4444; /* Đỏ để thể hiện đây là deadline */
+        font-weight: 600;
+        font-size: 14px;
+    }
+}

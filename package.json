@@ -54,6 +54,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-layout": "~6.15.3",
+    "@google/generative-ai": "^0.24.1",
     "@monaco-editor/react": "^4.6.0",
     "@sentry/react": "^7.65.0",
     "@tinymce/tinymce-react": "^4.2.0",
@@ -62,7 +63,7 @@
     "@types/styled-components": "^5.1.26",
     "@umijs/route-utils": "^1.0.36",
     "antd": "4.21.0",
-    "antd-img-crop": "^4.2.4",
+    "antd-img-crop": "^4.30.0",
     "apexcharts": "^3.41.1",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",

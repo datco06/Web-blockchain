@@ -1,100 +1,104 @@
-import { Avatar, List, Progress, Tag } from 'antd';
+import { List, Tag } from 'antd';
+import { history } from 'umi';
+import './ActiveProjects.less';
 
-type ProjectStatus = 'in-progress' | 'revision' | 'completed';
+type ProjectStatus = 'in-progress' | 'revision' | 'completed' | 'active';
 
 interface Project {
-	title: string;
-	freelancer: string;
-	status: ProjectStatus;
-	statusLabel: string;
-	milestone: string;
-	progress: number;
-	budget: string;
-	icon: 'globe' | 'api';
+    title: string;
+    freelancer?: string;
+    status: ProjectStatus;
+    statusLabel: string;
+    milestone?: string;
+    progress?: number;
+    budget: string;
+    icon?: 'globe' | 'api';
+    description?: string;
+    duration?: string;
+    requirements?: string;
+    category?: string;
+    postDate?: string;
+    bids?: number;
+    milestones?: any[];
 }
 
-const iconMap: Record<Project['icon'], JSX.Element> = {
-	globe: (
-		<svg viewBox='0 0 24 24'>
-			<circle cx='12' cy='12' r='9' />
-			<path d='M3 12h18' />
-			<path d='M12 3a15 15 0 0 1 0 18' />
-			<path d='M12 3a15 15 0 0 0 0 18' />
-		</svg>
-	),
-	api: (
-		<svg viewBox='0 0 24 24'>
-			<path d='M4 7h16v10H4z' />
-			<path d='M7 10h3v4H7z' />
-			<path d='M14 10h3' />
-			<path d='M14 14h3' />
-		</svg>
-	),
-};
-
 const statusTagColor: Record<ProjectStatus, string> = {
-	'in-progress': 'blue',
-	revision: 'gold',
-	completed: 'green',
+    'in-progress': 'blue',
+    revision: 'gold',
+    completed: 'green',
+    'active': 'processing'
 };
 
-const getInitials = (name: string) =>
-	name
-		.split(' ')
-		.filter(Boolean)
-		.map((part) => part[0]?.toUpperCase() ?? '')
-		.join('')
-		.slice(0, 2);
+const ActiveProjects = ({ projects }: { projects: Project[] }) => {
+    const handleProjectClick = (project: Project) => {
+        history.push({
+            pathname: '/buyer/project-detail',
+            state: { project }
+        });
+    };
 
-const ActiveProjects = ({ projects }: { projects: Project[] }) => (
-	<section className='active-projects'>
-		<header>
-			<h2>Active Projects</h2>
-			<button type='button'>View All</button>
-		</header>
-		<List
-			className='project-list'
-			dataSource={projects}
-			itemLayout='vertical'
-			split={false}
-			rowKey={(project) => project.title}
-			renderItem={(project) => (
-				<List.Item style={{ padding: 0, border: 'none', marginBottom: 18 }}>
-					<div className='project-card'>
-						<div className='project-header'>
-							<div className='project-icon'>{iconMap[project.icon]}</div>
-							<div className='project-header-content'>
-								<div className='project-title-row'>
-									<h3>{project.title}</h3>
-									<Tag color={statusTagColor[project.status]}>{project.statusLabel}</Tag>
-								</div>
-								<div className='project-freelancer'>
-									<Avatar size={48} className='project-avatar'>
-										{getInitials(project.freelancer)}
-									</Avatar>
-									<div>
-										<p>Freelancer</p>
-										<strong>{project.freelancer}</strong>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className='project-meta'>
-							<span>{project.milestone}</span>
-							<span>Budget {project.budget}</span>
-						</div>
-						<Progress
-							percent={project.progress}
-							showInfo={false}
-							className='project-progress'
-							strokeWidth={10}
-						/>
-					</div>
-				</List.Item>
-			)}
-		/>
-	</section>
-);
+    return (
+        <section className='active-projects'>
+            <header>
+                <h2>Project management</h2>
+            </header>
+            <List
+                className='project-list'
+                dataSource={projects}
+                itemLayout='vertical'
+                split={true}
+                rowKey={(project) => project.title + (project.postDate || '')}
+                renderItem={(project: Project) => (
+                    <List.Item style={{ padding: '24px 0' }}>
+                        <div className='project-card-v2'>
+                            <div className='project-main-info'>
+                                <div className='title-row'>
+                                    <h3
+                                        className='project-title-v2'
+                                        onClick={() => handleProjectClick(project)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        {project.title}
+                                    </h3>
+                                    <Tag color={statusTagColor[project.status]}>{project.statusLabel}</Tag>
+                                </div>
+
+                                <div className='project-meta-v2'>
+                                    {project.postDate && `Posted on ${project.postDate}`}
+                                </div>
+
+                                <div className='project-description-snippet'>
+                                    {project.description || 'No detailed description for this project.'}
+                                </div>
+
+                                <div className='project-tags-v2'>
+                                    {project.category && <span className='tag-link'>{project.category}</span>}
+                                    {project.requirements?.split(',').map((req, i) => (
+                                        <span key={i} className='tag-link'>{req.trim()}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className='project-side-info'>
+                                <div className='budget-box'>
+                                    <strong>{project.budget}</strong>
+                                    <span>Budget</span>
+                                </div>
+
+                                {project.duration && (
+                                    <div className='duration-info'>
+                                        <span className='deadline-label'>Expected Deadline:</span>
+                                        <strong className='deadline-value'>{project.duration}</strong>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </List.Item>
+                )}
+            />
+        </section>
+    );
+};
 
 export type { Project };
 export default ActiveProjects;

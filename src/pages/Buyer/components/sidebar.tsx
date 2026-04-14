@@ -10,7 +10,7 @@ const menuItems = [
 	{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard', href: '/buyer' },
 	{ key: 'active', label: 'Active Jobs', icon: 'briefcase', href: '/buyer/post-job' },
 	{ key: 'projects', label: 'Project Management', icon: 'project', href: '/buyer/projects' },
-	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
+	{ key: 'messages', label: 'Messages', icon: 'message', href: '/buyer/messages' },
 	{ key: 'freelancers', label: 'Freelancers', icon: 'users', href: '/buyer/freelancers' },
 ];
 

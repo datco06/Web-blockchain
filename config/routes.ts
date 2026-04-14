@@ -40,6 +40,12 @@
 
 	},
 	{
+		path: '/buyer/profile',
+		component: './Buyer/profile',
+		layout: false,
+
+	},
+	{
 		path: '/buyer/post-job',
 		component: './Buyer/post a new job',
 		layout: false,
@@ -56,6 +62,26 @@
 		component: './Buyer/freelancers',
 		layout: false,
 
+	},
+	{
+		path: '/buyer/project-breakdown',
+		component: './Buyer/project-breakdown',
+		layout: false,
+	},
+	{
+		path: '/buyer/project-detail',
+		component: './Buyer/project-detail',
+		layout: false,
+	},
+	{
+		path: '/buyer/view-profile',
+		component: './Buyer/view-profile',
+		layout: false,
+	},
+	{
+		path: '/buyer/messages',
+		component: './Buyer/messages',
+		layout: false,
 	},
 	{
 		component: './404',

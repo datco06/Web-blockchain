@@ -1,3 +1,5 @@
+// Remove react-router-dom import, use umi instead
+import { history } from 'umi';
 import type { UploadFile, UploadProps } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, Upload } from 'antd';
@@ -5,7 +7,7 @@ import { useState } from 'react';
 import '../index.less';
 import './index.less';
 import Sidebar from '../components/sidebar';
-import TopBar from '../../Freelancer/components/topbar';
+import TopBar from '../components/topbar';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -17,7 +19,7 @@ interface JobFormValues {
 	description: string;
 	functionality: string;
 	requirements: string;
-	deadline: string;
+	duration: string;
 	budgetRange: string;
 	documents?: UploadFile[];
 }
@@ -36,9 +38,12 @@ const CreateJob = () => {
 	const handleSubmit = async (values: JobFormValues) => {
 		setSubmitting(true);
 		try {
-			// TODO: integrate AI-assisted drafting + API call
-			console.info('Job draft', values);
-		} finally {
+			history.push({
+				pathname: '/buyer/project-breakdown',
+				state: { jobData: values }
+			});
+		} catch (error) {
+			console.error('Navigation error:', error);
 			setSubmitting(false);
 		}
 	};
@@ -148,24 +153,18 @@ const CreateJob = () => {
 
 								<div className='form-row'>
 									<Form.Item
-										label='Deadline'
-										name='deadline'
-										rules={[{ required: true, message: 'Provide an estimated deadline.' }]}
+										label='Duration'
+										name='duration'
+										rules={[{ required: true, message: 'Provide an estimated project duration.' }]}
 									>
-										<Input type='date' size='large' />
+										<Input size='large' placeholder='e.g. 2 weeks, 1 month...' />
 									</Form.Item>
 									<Form.Item
 										label='Budget Range'
 										name='budgetRange'
-										rules={[{ required: true, message: 'Select a budget range.' }]}
+										rules={[{ required: true, message: 'Provide an estimated budget.' }]}
 									>
-										<Select size='large' placeholder='Select a range'>
-											{budgetRanges.map((option) => (
-												<Option key={option.value} value={option.value}>
-													{option.label}
-												</Option>
-											))}
-										</Select>
+										<Input size='large' placeholder='e.g. $3,000 - $5,000' />
 									</Form.Item>
 								</div>
 
@@ -178,7 +177,7 @@ const CreateJob = () => {
 								>
 									<Dragger multiple beforeUpload={() => false}>
 										<p className='ant-upload-drag-icon'>
-											<InboxOutlined />
+											<InboxOutlined rev="" />
 										</p>
 										<p className='ant-upload-text'>Click or drag files to this area to upload</p>
 										<p className='ant-upload-hint'>Up to 25MB each. We will keep them private.</p>

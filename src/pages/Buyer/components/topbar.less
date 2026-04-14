@@ -29,16 +29,8 @@
     font-size: 20px;
   }
 
-  strong {
-    display: block;
-    color: #102049;
-    font-size: 18px;
-  }
-
-  span {
-    color: #7c87a8;
-    font-size: 13px;
-  }
+  strong { display: block; color: #102049; font-size: 18px; }
+  span { color: #7c87a8; font-size: 13px; }
 }
 
 .topbar-tabs {
@@ -58,8 +50,8 @@
 
   .tab.active {
     background: #fff;
-    color: #0f7bff;
-    box-shadow: 0 8px 18px rgba(15, 91, 255, 0.18);
+    color: #10b981;
+    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.18);
   }
 }
 
@@ -89,9 +81,7 @@
     font-size: 15px;
     color: #2c3653;
 
-    &:focus {
-      outline: none;
-    }
+    &:focus { outline: none; }
   }
 }
 
@@ -144,13 +134,13 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 3px solid #cfe2ff;
+  border: 3px solid #ccfbf1;
   padding: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffe4d1;
-  color: #2a1d11;
+  background: #eef2ff;
+  color: #1e3a8a;
   font-weight: 700;
 }
 
@@ -168,13 +158,11 @@
   }
 }
 
-/* Container bọc thẻ avatar */
 .avatar-container {
   position: relative;
   display: inline-flex;
 }
 
-/* Thêm hiệu ứng chuột vào avatar cũ */
 .avatar {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -185,18 +173,16 @@
     height: 100%;
     object-fit: cover;
   }
-
+  
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* Kiểu dáng cho Dropdown */
 .avatar-dropdown {
   position: absolute;
   top: ~"calc(100% + 20px)";
-  /* Cách avatar một đoạn */
   right: 0;
   background: #fff;
   min-width: 250px;
@@ -204,8 +190,7 @@
   box-shadow: 0 10px 40px rgba(16, 32, 73, 0.15);
   border: 1px solid #f0f0f0;
   z-index: 100;
-
-  /* Tạo hiệu ứng mượt mờ khi thả xuống */
+  
   animation: dropdownSlide 0.2s ease-out forwards;
 
   .dropdown-user-info {
@@ -219,7 +204,7 @@
       height: 60px;
       border-radius: 12px;
       overflow: hidden;
-      background: #b91c1c; // Màu đỏ giống ảnh
+      background: #b91c1c;
 
       img {
         width: 100%;
@@ -260,7 +245,7 @@
 
         &:hover {
           background: #f7fafc;
-          color: #0f7bff;
+          color: #10b981;
         }
 
         &.logout {
@@ -279,7 +264,6 @@
     opacity: 0;
     transform: translateY(-8px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);

@@ -1,6 +1,6 @@
 import './index.less';
 import Sidebar from './components/sidebar';
-import TopBar from '../Freelancer/components/topbar';
+import TopBar from './components/topbar';
 import OverviewCards, { OverviewStat } from './components/OverviewCards';
 import ActiveProjects, { Project } from './components/ActiveProjects';
 import RecentMessages, { Message } from './components/RecentMessages';

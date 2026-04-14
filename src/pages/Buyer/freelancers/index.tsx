@@ -1,138 +1,192 @@
+import { history } from 'umi';
+import { useState } from 'react';
 import '../index.less';
 import './index.less';
 import Sidebar from '../components/sidebar';
-import TopBar from '../../Freelancer/components/topbar';
+import TopBar from '../components/topbar';
 
-const aiTopFreelancers = [
-	{
-		name: 'Alex Rivera',
-		role: 'Senior UI Designer',
-		bid: '$1,200',
-		bidType: 'Total Fixed',
-		experience: '8+ years',
-		portfolio: '#',
-		match: 98,
-		avatar: 'AR',
-	},
-	{
-		name: 'Taylor Chen',
-		role: 'Product Architect',
-		bid: '$1,500',
-		bidType: 'Estimated Project',
-		experience: '6+ years',
-		portfolio: '#',
-		match: 92,
-		avatar: 'TC',
-	},
-	{
-		name: 'Jordan Smith',
-		role: 'UX Researcher',
-		bid: '$950',
-		bidType: 'Weekly Rate',
-		experience: '4+ years',
-		portfolio: '#',
-		match: 85,
-		avatar: 'JS',
-	},
-	{
-		name: 'Morgan Lee',
-		role: 'UI Specialist',
-		bid: '$1,100',
-		bidType: 'Fixed Budget',
-		experience: '5+ years',
-		portfolio: '#',
-		match: 82,
-		avatar: 'ML',
-	},
+interface Talent {
+    name: string;
+    role: string;
+    bid: string;
+    bidType: string;
+    experience: string;
+    portfolio: string;
+    match: number;
+    avatar: string;
+}
+
+const aiTopFreelancers: Talent[] = [
+    {
+        name: 'Alex Rivera',
+        role: 'Senior UI Designer',
+        bid: '$1,200',
+        bidType: 'Total Fixed',
+        experience: '8+ years',
+        portfolio: '#',
+        match: 98,
+        avatar: 'AR',
+    },
+    {
+        name: 'Taylor Chen',
+        role: 'Product Architect',
+        bid: '$1,500',
+        bidType: 'Estimated Project',
+        experience: '6+ years',
+        portfolio: '#',
+        match: 92,
+        avatar: 'TC',
+    },
+    {
+        name: 'Jordan Smith',
+        role: 'UX Researcher',
+        bid: '$950',
+        bidType: 'Weekly Rate',
+        experience: '4+ years',
+        portfolio: '#',
+        match: 85,
+        avatar: 'JS',
+    },
+    {
+        name: 'Morgan Lee',
+        role: 'UI Specialist',
+        bid: '$1,100',
+        bidType: 'Fixed Budget',
+        experience: '5+ years',
+        portfolio: '#',
+        match: 82,
+        avatar: 'ML',
+    },
 ];
 
-const FreelancerFinder = () => (
-	<div className='buyer-shell'>
-		<Sidebar active='freelancers' />
-		<main className='buyer-main'>
-			<TopBar active='dashboard' />
-			<div className='buyer-content freelancer-content'>
-				<section className='overview-header'>
-					<div>
-						<p className='eyebrow'>Find freelancers</p>
-						<h1>Browse curated pitches powered by TrustFlow AI.</h1>
-					</div>
-				</section>
+const FreelancerFinder = () => {
+    const [filteredTalents, setFilteredTalents] = useState<Talent[]>(aiTopFreelancers);
+    const [filters, setFilters] = useState({
+        specialty: 'design',
+        experience: 'senior'
+    });
 
-				<section className='talent-table'>
-					<form className='talent-filters'>
-						<label>
-							<span>Specialty</span>
-							<select defaultValue='design'>
-								<option value='design'>Product Design</option>
-								<option value='frontend'>Front-end Development</option>
-								<option value='backend'>Backend / API</option>
-								<option value='ai'>AI &amp; Data</option>
-							</select>
-						</label>
-						<label>
-							<span>Experience</span>
-							<select defaultValue='senior'>
-								<option value='mid'>3+ years</option>
-								<option value='senior'>5+ years</option>
-								<option value='lead'>8+ years</option>
-							</select>
-						</label>
-						<button type='button' className='search-btn'>
-							Find talent
-						</button>
-					</form>
-					<div className='talent-tabs'>
-						<button type='button' className='active'>
-							All (24)
-						</button>
-						<button type='button'>In Progress (8)</button>
-						<button type='button'>Completed (5)</button>
-					</div>
-					<div className='table-wrapper'>
-						<div className='table-head'>
-							<span>Freelancer</span>
-							<span>Bid Amount</span>
-							<span>Experience</span>
-							<span>Portfolio</span>
-							<span>AI Match Score</span>
-							<span />
-						</div>
-						<ul>
-							{aiTopFreelancers.map((talent) => (
-								<li key={talent.name}>
-									<div className='freelancer'>
-										<div className='avatar'>{talent.avatar}</div>
-										<div>
-											<strong>{talent.name}</strong>
-											<p>{talent.role}</p>
-										</div>
-									</div>
-									<div className='bid'>
-										<strong>{talent.bid}</strong>
-										<span>{talent.bidType}</span>
-									</div>
-									<div className='experience'>{talent.experience}</div>
-									<div className='portfolio'>
-										<a href={talent.portfolio}>View Portfolio</a>
-									</div>
-									<div className='match'>
-										<div className='bar'>
-											<span style={{ width: `${talent.match}%` }} />
-										</div>
-										<strong>{talent.match}%</strong>
-									</div>
-									<div className='action'>
-										<button type='button'>Hire</button>
-									</div>
-								</li>
-							))}
-						</ul>
-					</div>
-				</section>
-			</div>
-		</main>
-	</div>
-);
+    const handleView = (talent: any) => {
+        history.push({
+            pathname: '/buyer/view-profile',
+            state: { 
+                freelancer: {
+                    ...talent,
+                    jobTitle: talent.role,
+                },
+                from: 'freelancers'
+            }
+        });
+    };
+
+    const handleFilterChange = (field: string, value: string) => {
+        setFilters(prev => ({ ...prev, [field]: value }));
+    };
+
+    const applyFilters = () => {
+        const results = aiTopFreelancers.filter(talent => {
+            const matchSpecialty = talent.role.toLowerCase().includes(filters.specialty.toLowerCase());
+            
+            let matchExperience = true;
+            if (filters.experience === 'mid') matchExperience = talent.experience.includes('3+') || talent.experience.includes('4+');
+            else if (filters.experience === 'senior') matchExperience = talent.experience.includes('5+') || talent.experience.includes('6+');
+            else if (filters.experience === 'lead') matchExperience = talent.experience.includes('8+');
+
+            return matchSpecialty && matchExperience;
+        });
+        setFilteredTalents(results);
+    };
+
+    return (
+        <div className='buyer-shell'>
+            <Sidebar active='freelancers' />
+            <main className='buyer-main'>
+                <TopBar active='dashboard' />
+                <div className='buyer-content freelancer-content'>
+                    <section className='overview-header'>
+                        <div>
+                            <p className='eyebrow'>Find freelancers</p>
+                            <h1>Browse curated pitches powered by TrustFlow AI.</h1>
+                        </div>
+                    </section>
+
+                    <section className='talent-table'>
+                        <form className='talent-filters' onSubmit={(e) => e.preventDefault()}>
+                            <label>
+                                <span>Specialty</span>
+                                <select 
+                                    value={filters.specialty} 
+                                    onChange={(e) => handleFilterChange('specialty', e.target.value)}
+                                >
+                                    <option value='design'>Product Design</option>
+                                    <option value='frontend'>Front-end Development</option>
+                                    <option value='backend'>Backend / API</option>
+                                    <option value='ai'>AI &amp; Data</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>Experience</span>
+                                <select 
+                                    value={filters.experience} 
+                                    onChange={(e) => handleFilterChange('experience', e.target.value)}
+                                >
+                                    <option value='mid'>3+ years</option>
+                                    <option value='senior'>5+ years</option>
+                                    <option value='lead'>8+ years</option>
+                                </select>
+                            </label>
+                            <button type='button' className='search-btn' onClick={applyFilters}>
+                                Find talent
+                            </button>
+                        </form>
+
+                        <div className='table-wrapper'>
+                            <div className='table-head'>
+                                <span>Freelancer</span>
+                                <span>Bid Amount</span>
+                                <span>Experience</span>
+                                <span>AI Match Score</span>
+                                <span />
+                            </div>
+                            <ul>
+                                {filteredTalents.length > 0 ? (
+                                    filteredTalents.map((talent) => (
+                                        <li key={talent.name}>
+                                            <div className='freelancer'>
+                                                <div className='avatar'>{talent.avatar}</div>
+                                                <div>
+                                                    <strong>{talent.name}</strong>
+                                                    <p>{talent.role}</p>
+                                                </div>
+                                            </div>
+                                            <div className='bid'>
+                                                <strong>{talent.bid}</strong>
+                                                <span>{talent.bidType}</span>
+                                            </div>
+                                            <div className='experience'>{talent.experience}</div>
+                                            <div className='match'>
+                                                <div className='bar'>
+                                                    <span style={{ width: `${talent.match}%` }} />
+                                                </div>
+                                                <strong>{talent.match}%</strong>
+                                            </div>
+                                            <div className='action'>
+                                                <button type='button' onClick={() => handleView(talent)}>View</button>
+                                            </div>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <div style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>
+                                        No freelancers found matching these criteria.
+                                    </div>
+                                )}
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    );
+};
 
 export default FreelancerFinder;

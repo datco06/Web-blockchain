@@ -2,15 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import './topbar.less';
 
 interface TopBarProps {
-	active?: 'dashboard' | 'profile' | 'earnings';
+	active?: 'dashboard' | 'profile' | 'projects';
 }
 
 const TopBar = (_props: TopBarProps) => {
-	// 2. Khai báo state và ref
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	// 3. Logic đóng dropdown khi click ra ngoài vùng avatar
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -29,7 +27,7 @@ const TopBar = (_props: TopBarProps) => {
 				<div className='brand-icon'>TF</div>
 				<div>
 					<strong>TrustFlow</strong>
-					<span>Talent Dashboard</span>
+					<span>Client Dashboard</span>
 				</div>
 			</div>
 
@@ -49,27 +47,23 @@ const TopBar = (_props: TopBarProps) => {
 					</svg>
 				</button>
 
-				{/* 4. Bọc Avatar trong một container và thêm sự kiện onClick */}
 				<div className='avatar-container' ref={dropdownRef}>
 					<div
 						className='avatar'
 						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						style={{ cursor: 'pointer' }}
 					>
-						<span>AX</span>
+						<span>CL</span>
 					</div>
 
-					{/* 5. Giao diện Dropdown hiển thị khi state chuyển thành true */}
 					{isDropdownOpen && (
 						<div className='avatar-dropdown'>
-
-
 							<ul>
-								<li><a href='/profile'>Thông tin tài khoản</a></li>
+								<li><a href='/buyer/profile'>Account Settings</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/profile'>Trang chủ</a></li>
+								<li><a href='/buyer'>Home</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/page/index.tsx' className='logout'>Đăng Xuất</a></li>
+								<li><a href='/page/index.tsx' className='logout'>Logout</a></li>
 							</ul>
 						</div>
 					)}

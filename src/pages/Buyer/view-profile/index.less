@@ -1,0 +1,309 @@
+.view-shell {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+    background: #f4f6fb;
+}
+
+.view-man {
+    background: #f4f6fb;
+    min-height: 100vh;
+}
+
+.view-profile-wrapper {
+    background: #fff;
+    min-height: 100vh;
+    
+    .profile-banner {
+        height: 240px;
+        position: relative;
+        overflow: visible;
+        background-size: cover;
+        background-position: center;
+        background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80');
+
+        .profile-avatar-wrapper {
+            position: absolute;
+            bottom: -60px;
+            left: 40px;
+            
+            .avatar-img {
+                width: 160px;
+                height: 160px;
+                border: 6px solid #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                object-fit: cover;
+            }
+        }
+    }
+
+    .profile-main-area {
+        padding: 80px 40px 40px;
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 48px;
+    }
+
+    /* LEFT SIDEBAR */
+    .profile-sidebar-content {
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            
+            .contact-btn {
+                flex: 1;
+                height: 48px;
+                font-weight: 600;
+                background: #e11d48;
+                border-color: #e11d48;
+                border-radius: 8px;
+                
+                &:hover {
+                    background: #be123c;
+                    border-color: #be123c;
+                }
+            }
+            
+            .share-btn {
+                width: 48px;
+                height: 48px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f1f5f9;
+                border: 1px solid #e2e8f0;
+                color: #475569;
+                
+                &:hover {
+                    background: #e2e8f0;
+                }
+            }
+        }
+
+        .verification-box {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            
+            h3 {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 20px;
+                color: #0f172a;
+            }
+
+            .verify-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                
+                &:last-child { margin-bottom: 0; }
+
+                .verify-label {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    color: #475569;
+                    font-size: 14px;
+                    
+                    svg { color: #2563eb; }
+                }
+                
+                .verify-status {
+                    font-size: 13px;
+                    color: #94a3b8;
+                    font-weight: 500;
+                    
+                    &.is-verified {
+                        color: #059669;
+                    }
+                }
+            }
+            
+            .verify-stats {
+                margin-top: 24px;
+                padding-top: 24px;
+                border-top: 1px solid #f1f5f9;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                
+                .stat-row {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    
+                    .label { color: #64748b; }
+                    .value { color: #0f172a; font-weight: 600; }
+                }
+            }
+        }
+    }
+
+    /* RIGHT CONTENT */
+    .profile-details-content {
+        .profile-header-info {
+            margin-bottom: 40px;
+            
+            h1 {
+                font-size: 36px;
+                font-weight: 800;
+                color: #0f172a;
+                margin: 0 0 8px 0;
+            }
+            
+            .username {
+                font-size: 18px;
+                color: #64748b;
+                margin-bottom: 16px;
+            }
+
+            .rating-row {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                
+                .stars {
+                    color: #f59e0b;
+                    font-size: 20px;
+                }
+                
+                .reviews-count {
+                    color: #475569;
+                    font-weight: 600;
+                }
+                
+                .join-date {
+                    color: #94a3b8;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+            }
+        }
+
+        .profile-section {
+            margin-bottom: 48px;
+            
+            .section-title {
+                font-size: 20px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .bio-text {
+                font-size: 16px;
+                line-height: 1.8;
+                color: #334155;
+            }
+
+            .skills-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                
+                .skill-tag {
+                    padding: 6px 16px;
+                    background: #f8fafc;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    color: #475569;
+                    cursor: pointer;
+                    
+                    &:hover {
+                        background: #f1f5f9;
+                        border-color: #cbd5e1;
+                    }
+                }
+            }
+
+            .portfolio-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+                
+                .portfolio-item {
+                    border-radius: 12px;
+                    overflow: hidden;
+                    border: 1px solid #e2e8f0;
+                    
+                    .portfolio-img {
+                        width: 100%;
+                        height: 180px;
+                        background: #f1f5f9;
+                        background-size: cover;
+                        background-position: center;
+                    }
+                    
+                    .portfolio-info {
+                        padding: 16px;
+                        h4 { font-weight: 600; margin-bottom: 4px; }
+                        p { font-size: 13px; color: #64748b; }
+                    }
+                }
+            }
+            
+            .review-list {
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+                
+                .review-item {
+                    display: flex;
+                    gap: 16px;
+                    
+                    .buyer-avatar {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                        background: #eef2ff;
+                        color: #2563eb;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 700;
+                        flex-shrink: 0;
+                    }
+                    
+                    .review-content {
+                        flex: 1;
+                        .review-header {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 4px;
+                            h5 { font-weight: 700; margin: 0; }
+                            .stars { color: #f59e0b; font-size: 13px; }
+                        }
+                        .review-date {
+                            font-size: 12px;
+                            color: #94a3b8;
+                            margin-bottom: 8px;
+                        }
+                        .review-txt {
+                            font-size: 14px;
+                            color: #475569;
+                            line-height: 1.6;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .view-profile-wrapper .profile-main-area {
+        grid-template-columns: 1fr;
+    }
+}
