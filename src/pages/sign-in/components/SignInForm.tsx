@@ -1,5 +1,18 @@
 import { useState, type FormEvent } from 'react';
 import { history, Link } from 'umi';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
+
+
+const firebaseConfig = {
+	apiKey: "YOUR_API_KEY",
+	authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+	projectId: "YOUR_PROJECT_ID",
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 interface SignInFormProps {
 	title?: string;
@@ -12,6 +25,7 @@ const SignInForm = ({ title = 'Sign in to TrustFlow' }: SignInFormProps) => {
 		lastName: '',
 		email: '',
 		password: '',
+		role: 'freelancer',
 	});
 	const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
@@ -22,6 +36,7 @@ const SignInForm = ({ title = 'Sign in to TrustFlow' }: SignInFormProps) => {
 			name: `${formValues.firstName} ${formValues.lastName}`.trim(),
 			email: formValues.email,
 			password: formValues.password,
+			role: formValues.role,
 		};
 
 		localStorage.setItem('tf-demo-user', JSON.stringify(demoUser));
@@ -29,12 +44,52 @@ const SignInForm = ({ title = 'Sign in to TrustFlow' }: SignInFormProps) => {
 		setTimeout(() => history.push('/login?next=buyer'), 1500);
 	};
 
+	const handleGoogleLogin = async () => {
+		try {
+			const provider = new GoogleAuthProvider();
+			const result = await signInWithPopup(auth, provider);
+
+			const demoUser = {
+				name: result.user.displayName,
+				email: result.user.email,
+				role: formValues.role,
+			};
+			localStorage.setItem('tf-demo-user', JSON.stringify(demoUser));
+
+			setStatusMessage('Đăng nhập Google thành công! Đang chuyển trang...');
+			setTimeout(() => history.push('/login?next=buyer'), 1500);
+		} catch (error) {
+			console.error("Lỗi đăng nhập Google", error);
+			setStatusMessage('Đăng nhập Google thất bại. Vui lòng kiểm tra console.');
+		}
+	};
+
+	const handleGithubLogin = async () => {
+		try {
+			const provider = new GithubAuthProvider();
+			const result = await signInWithPopup(auth, provider);
+
+			const demoUser = {
+				name: result.user.displayName || result.user.email?.split('@')[0],
+				email: result.user.email,
+				role: formValues.role,
+			};
+			localStorage.setItem('tf-demo-user', JSON.stringify(demoUser));
+
+			setStatusMessage('Đăng nhập GitHub thành công! Đang chuyển trang...');
+			setTimeout(() => history.push('/login?next=buyer'), 1500);
+		} catch (error) {
+			console.error("Lỗi đăng nhập GitHub", error);
+			setStatusMessage('Đăng nhập GitHub thất bại. Vui lòng kiểm tra console.');
+		}
+	};
+
 	return (
 		<form className='signin-form' onSubmit={handleSubmit}>
 			<div className='form-header'>
 				<h2>{title}</h2>
 				<p>
-					Already have an account? <Link to = '/Login'>Log in</Link>
+					Already have an account? <Link to='/Login'>Log in</Link>
 				</p>
 			</div>
 
@@ -62,6 +117,28 @@ const SignInForm = ({ title = 'Sign in to TrustFlow' }: SignInFormProps) => {
 							setFormValues((prev) => ({ ...prev, lastName: event.target.value }))
 						}
 					/>
+				</label>
+			</div>
+			<div className='role-select'>
+				<label>
+					<input
+						type='radio'
+						name='role'
+						value='freelancer'
+						checked={formValues.role === 'freelancer'}
+						onChange={(e) => setFormValues(prev => ({ ...prev, role: e.target.value }))}
+					/>
+					<span>I'm a freelancer</span>
+				</label>
+				<label>
+					<input
+						type='radio'
+						name='role'
+						value='buyer'
+						checked={formValues.role === 'buyer'}
+						onChange={(e) => setFormValues(prev => ({ ...prev, role: e.target.value }))}
+					/>
+					<span>I'm a buyer</span>
 				</label>
 			</div>
 
@@ -112,14 +189,10 @@ const SignInForm = ({ title = 'Sign in to TrustFlow' }: SignInFormProps) => {
 			</div>
 
 			<div className='social-buttons'>
-				<button type='button'>Google</button>
-				<button type='button'>GitHub</button>
+				<button type='button' onClick={handleGoogleLogin}>Google</button>
+				<button type='button' onClick={handleGithubLogin}>GitHub</button>
 			</div>
 
-			<div className='form-badges'>
-				<span>🔒 SSL Secure</span>
-				<span>🛡 GDPR Ready</span>
-			</div>
 		</form>
 	);
 };

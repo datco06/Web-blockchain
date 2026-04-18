@@ -7,12 +7,14 @@ import TopBar from '../components/topbar';
 import Sidebar from '../components/sidebar';
 import './index.less';
 
+import { useModel } from 'umi';
+
 const ProjectDetail = () => {
+    const { getProjectFromState } = useModel('buyer.project-detail.index');
     const location = useLocation();
-    const project = (location.state as any)?.project;
+    const project = getProjectFromState(location.state);
     const [form] = Form.useForm();
 
-    // State to manage editable milestones
     const [milestones, setMilestones] = useState(project?.milestones || []);
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
@@ -90,7 +92,6 @@ const ProjectDetail = () => {
                     </section>
 
                     <div className='detail-grid'>
-                        {/* LEFT COLUMN: Project Details & Roadmap */}
                         <div className='left-column'>
                             <Card className='main-detail-card'>
                                 <div className='detail-header'>
@@ -184,7 +185,6 @@ const ProjectDetail = () => {
                             </Card>
                         </div>
 
-                        {/* RIGHT COLUMN: Statistics & Freelancers */}
                         <div className='right-column'>
                             <Card className='freelancers-card' title="Applicants">
                                 <List
@@ -220,7 +220,6 @@ const ProjectDetail = () => {
                     </div>
                 </div>
 
-                {/* EDIT MODAL */}
                 <Modal
                     title="Edit Roadmap Step"
                     visible={editingIndex !== null}

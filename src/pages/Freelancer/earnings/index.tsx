@@ -1,88 +1,31 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent } from 'react';
+import { useModel } from 'umi';
 import Sidebar from '../components/Sidebar';
 import TopBar from '../components/topbar';
 import './index.less';
 
-const payoutCards = [
-	{
-		key: 'available',
-		label: 'Available to withdraw',
-		amount: 7320,
-		badge: 'Ready',
-		description: 'Cleared funds ready for payout.',
-	},
-	{
-		key: 'locked',
-		label: 'Temporarily locked',
-		amount: 2150,
-		badge: 'In review',
-		description: 'Funds clearing with clients.',
-	},
-	{
-		key: 'lifetime',
-		label: 'Withdrawn this month',
-		amount: 4800,
-		badge: '+18% vs last month',
-		description: 'Total processed in March.',
-	},
-];
-
-const paymentMethods = [
-	{ id: 'usdc', label: 'ETH Wallet', details: '0x71C7...99de', network: 'Base' },
-	
-];
-
-const FEE_RATE = 0.025;
-const MIN_FEE = 5;
-
-const formatCurrency = (value: number) => {
-	const formatted = value.toLocaleString('en-US', {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	});
-
-	return `Ξ ${formatted}`;
-};
-
 const Earnings = () => {
-	const [selectedMethod, setSelectedMethod] = useState(paymentMethods[0].id);
-	const [amount, setAmount] = useState('');
-
-	const availableBalance = payoutCards.find((card) => card.key === 'available')?.amount ?? 0;
-	const numericAmount = Number(amount) || 0;
-
-	const { fee, total } = useMemo(() => {
-		if (!numericAmount) {
-			return { fee: 0, total: 0 };
-		}
-
-		const computedFee = Math.max(numericAmount * FEE_RATE, MIN_FEE);
-		return {
-			fee: Math.min(computedFee, numericAmount),
-			total: Math.max(numericAmount - computedFee, 0),
-		};
-	}, [numericAmount]);
-
-	const exceedsBalance = numericAmount > availableBalance;
-	const canSubmit = numericAmount > 0 && !exceedsBalance;
+	const {
+		payoutCards,
+		paymentMethods,
+		nextPayout,
+		supportLinks,
+		selectedMethod,
+		setSelectedMethod,
+		amount,
+		setAmount,
+		availableBalance,
+		fee,
+		total,
+		exceedsBalance,
+		canSubmit,
+		selectedMethodMeta,
+		formatCurrency,
+	} = useModel('freelancer.earnings');
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 	};
-
-	const selectedMethodMeta = paymentMethods.find((method) => method.id === selectedMethod);
-
-	const nextPayout = {
-		date: 'April 4, 2026',
-		amount: 1850,
-		status: 'Scheduled',
-	};
-
-	const supportLinks = [
-		{ label: 'How payout fees work', href: '#' },
-		{ label: 'Update compliance data', href: '#' },
-		{ label: 'Contact finance support', href: '#' },
-	];
 
 	return (
 		<div className='profile-shell earnings-shell'>
@@ -172,17 +115,17 @@ const Earnings = () => {
 									<label className='field-label' htmlFor='withdraw-amount'>
 										Amount to withdraw
 									</label>
-								<div className='amount-input'>
-									<span>Ξ</span>
-										<input
-											id='withdraw-amount'
-											type='number'
-											min='0'
-											step='50'
-											value={amount}
-											onChange={(event) => setAmount(event.target.value)}
-											placeholder='0.00'
-										/>
+									<div className='amount-input'>
+										<span>Ξ</span>
+											<input
+												id='withdraw-amount'
+												type='number'
+												min='0'
+												step='50'
+												value={amount}
+												onChange={(event) => setAmount(event.target.value)}
+												placeholder='0.00'
+											/>
 									</div>
 									<p className='helper'>
 										Available to withdraw: <strong>{formatCurrency(availableBalance)}</strong>
@@ -218,11 +161,11 @@ const Earnings = () => {
 									{supportLinks.map((link) => (
 										<li key={link.label}>
 											<a href={link.href}>{link.label}</a>
-									</li>
-								))}
-							</ul>
+										</li>
+									))}
+								</ul>
+							</div>
 						</div>
-					</div>
 				</div>
 			</main>
 		</div>

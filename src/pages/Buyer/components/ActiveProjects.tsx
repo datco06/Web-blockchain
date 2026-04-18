@@ -1,26 +1,7 @@
 import { List, Tag } from 'antd';
 import { history } from 'umi';
 import './ActiveProjects.less';
-
-type ProjectStatus = 'in-progress' | 'revision' | 'completed' | 'active';
-
-interface Project {
-    title: string;
-    freelancer?: string;
-    status: ProjectStatus;
-    statusLabel: string;
-    milestone?: string;
-    progress?: number;
-    budget: string;
-    icon?: 'globe' | 'api';
-    description?: string;
-    duration?: string;
-    requirements?: string;
-    category?: string;
-    postDate?: string;
-    bids?: number;
-    milestones?: any[];
-}
+import type { Project, ProjectStatus } from '@/services/buyer/projects/typing';
 
 const statusTagColor: Record<ProjectStatus, string> = {
     'in-progress': 'blue',
@@ -100,5 +81,4 @@ const ActiveProjects = ({ projects }: { projects: Project[] }) => {
     );
 };
 
-export type { Project };
 export default ActiveProjects;

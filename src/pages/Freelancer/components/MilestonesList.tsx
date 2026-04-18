@@ -1,13 +1,5 @@
 import './MilestonesList.less';
-
-interface Milestone {
-	title: string;
-	subtitle: string;
-	amount: string;
-	statusText: string;
-	statusType: 'warning' | 'success';
-	avatar: string;
-}
+import type { Milestone } from '@/services/freelancer/milestones/typing';
 
 interface MilestonesListProps {
 	items: Milestone[];

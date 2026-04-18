@@ -5,67 +5,11 @@ import './index.less';
 import Sidebar from '../components/sidebar';
 import TopBar from '../components/topbar';
 
-interface Talent {
-    id: string;
-    name: string;
-    role: string;
-    bid: string;
-    bidType: string;
-    experience: string;
-    portfolio: string;
-    match: number;
-    avatar: string;
-}
-
-const aiTopFreelancers: Talent[] = [
-    {
-        id: '1',
-        name: 'Alex Rivera',
-        role: 'Senior UI Designer',
-        bid: '$1,200',
-        bidType: 'Total Fixed',
-        experience: '8+ years',
-        portfolio: '#',
-        match: 98,
-        avatar: 'AR',
-    },
-    {
-        id: '2',
-        name: 'Taylor Chen',
-        role: 'Product Architect',
-        bid: '$1,500',
-        bidType: 'Estimated Project',
-        experience: '6+ years',
-        portfolio: '#',
-        match: 92,
-        avatar: 'TC',
-    },
-    {
-        id: '3',
-        name: 'Jordan Smith',
-        role: 'UX Researcher',
-        bid: '$950',
-        bidType: 'Weekly Rate',
-        experience: '4+ years',
-        portfolio: '#',
-        match: 85,
-        avatar: 'JS',
-    },
-    {
-        id: '4',
-        name: 'Morgan Lee',
-        role: 'UI Specialist',
-        bid: '$1,100',
-        bidType: 'Fixed Budget',
-        experience: '5+ years',
-        portfolio: '#',
-        match: 82,
-        avatar: 'ML',
-    },
-];
+import type { Talent } from '@/services/buyer/freelancers/typing';
+import { useModel } from 'umi';
 
 const FreelancerFinder = () => {
-    const [filteredTalents, setFilteredTalents] = useState<Talent[]>(aiTopFreelancers);
+    const { filteredTalents, filterTalents, setFilteredTalents } = useModel('buyer.freelancers.index');
     const [filters, setFilters] = useState({
         specialty: 'design',
         experience: 'senior'
@@ -89,16 +33,7 @@ const FreelancerFinder = () => {
     };
 
     const applyFilters = () => {
-        const results = aiTopFreelancers.filter(talent => {
-            const matchSpecialty = talent.role.toLowerCase().includes(filters.specialty.toLowerCase());
-            
-            let matchExperience = true;
-            if (filters.experience === 'mid') matchExperience = talent.experience.includes('3+') || talent.experience.includes('4+');
-            else if (filters.experience === 'senior') matchExperience = talent.experience.includes('5+') || talent.experience.includes('6+');
-            else if (filters.experience === 'lead') matchExperience = talent.experience.includes('8+');
-
-            return matchSpecialty && matchExperience;
-        });
+        const results = filterTalents(filters);
         setFilteredTalents(results);
     };
 

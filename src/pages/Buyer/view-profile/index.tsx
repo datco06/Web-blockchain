@@ -21,6 +21,7 @@ import '../index.less';
 import TopBar from '../components/topbar';
 import Sidebar from '../components/sidebar';
 import './index.less';
+import { useModel } from 'umi';
 
 const ViewProfile = () => {
     const { id } = useParams<{ id: string }>();
@@ -28,6 +29,8 @@ const ViewProfile = () => {
     const freelancer = (location.state as any)?.freelancer;
     const project = (location.state as any)?.project;
     const from = (location.state as any)?.from;
+
+    const { resolveFreelancerProfile, copyProfileLink } = useModel('buyer.view-profile.index');
 
     const [isContactModalVisible, setIsContactModalVisible] = useState(false);
 
@@ -60,42 +63,12 @@ const ViewProfile = () => {
         setIsContactModalVisible(false);
     };
 
-    const handleShare = () => {
-        navigator.clipboard.writeText(window.location.href);
+    const handleShare = async () => {
+        await copyProfileLink();
         message.success('Contact link copied to clipboard!');
     };
 
-    // Rich Mock Data for Wow factor
-    const defaultData = {
-        id: 1,
-        name: 'Alex Rivera',
-        username: '@arivera_design',
-        role: 'Senior Product Designer & Brand Strategist',
-        rating: 4.9,
-        reviewsCount: 124,
-        joinDate: 'Joined March 2021',
-        bio: "I'm a digital product designer with over 8 years of experience building scalable design systems and intuitive user interfaces for tech startups and established brands globally. I specialize in turning complex problems into simple, beautiful, and intuitive designs that drive business growth. My approach combines user-centric research with pixel-perfect visual execution.",
-        skills: ['UI/UX Design', 'Figma', 'System Architecture', 'Brand Identity', 'React', 'Motion Design', 'Prototyping'],
-        languages: ['English (Native)', 'Vietnamese (Fluent)', 'French (Intermediate)'],
-        pricing: '$45 - $65 / hour',
-        primaryService: 'Mobile & Web Product Design',
-        experience: [
-            { company: 'DesignFlow Studio', role: 'Lead Designer', period: '2021 - Present' },
-            { company: 'TechNova Inc.', role: 'Senior UI Artist', period: '2018 - 2021' },
-            { company: 'CreativePulse', role: 'Junior Designer', period: '2016 - 2018' }
-        ],
-        portfolio: [
-            { title: 'Fintech Mobile App', type: 'UI/UX', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80' },
-            { title: 'E-commerce Platform', type: 'Web Design', img: 'https://images.unsplash.com/photo-1523474253046-2cd2c78a0dbb?auto=format&fit=crop&w=600&q=80' },
-            { title: 'Luxury Brand Identity', type: 'Branding', img: 'https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&w=600&q=80' }
-        ],
-        reviews: [
-            { author: 'Michael Chen', rating: 5, date: '2 weeks ago', text: 'Alex is one of the most talented designers I have worked with. Their attention to detail and understanding of UX patterns is exceptional.' },
-            { author: 'Sarah Jenkins', rating: 5, date: '1 month ago', text: 'Delivered the project ahead of schedule and precisely to specifications. Highly recommended for any complex UI work.' }
-        ]
-    };
-
-    const freelancerData = freelancer ? { ...defaultData, name: freelancer.name, role: freelancer.role || freelancer.jobTitle, rating: freelancer.rating } : defaultData;
+    const freelancerData = resolveFreelancerProfile(freelancer);
 
     return (
         <div className="view-shell">
@@ -105,7 +78,6 @@ const ViewProfile = () => {
             <main className='view-man'>
                 <TopBar active={from === 'freelancers' ? 'dashboard' : 'projects'} />
                 <div className='view-profile-wrapper'>
-                    {/* BANNER SECTION */}
                     <div className='profile-banner' style={{ backgroundImage: "url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80')" }}>
                         <div className='profile-avatar-wrapper'>
                             <img
@@ -171,7 +143,6 @@ const ViewProfile = () => {
                             </div>
                         </div>
 
-                        {/* RIGHT COLUMN */}
                         <div className='profile-details-content'>
                             <div className='profile-header-info'>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -198,13 +169,11 @@ const ViewProfile = () => {
                                 </div>
                             </div>
 
-                            {/* BIO SECTION */}
                             <div className='profile-section'>
                                 <h3 className='section-title'><SolutionOutlined rev="" /> About Me</h3>
                                 <p className='bio-text'>{freelancerData.bio}</p>
                             </div>
 
-                            {/* SKILLS SECTION */}
                             <div className='profile-section'>
                                 <h3 className='section-title'><TranslationOutlined rev="" /> Service & Skills</h3>
                                 <div className='skills-list'>
@@ -214,7 +183,6 @@ const ViewProfile = () => {
                                 </div>
                             </div>
 
-                            {/* INFO GRID */}
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '48px' }}>
                                 <div>
                                     <h4 style={{ color: '#64748b', marginBottom: '8px' }}>Primary Service</h4>
@@ -226,7 +194,6 @@ const ViewProfile = () => {
                                 </div>
                             </div>
 
-                            {/* PORTFOLIO SECTION */}
                             <div className='profile-section'>
                                 <h3 className='section-title'><AppstoreOutlined rev="" /> Portfolio</h3>
                                 <div className='portfolio-grid'>
@@ -242,7 +209,6 @@ const ViewProfile = () => {
                                 </div>
                             </div>
 
-                            {/* REVIEWS SECTION */}
                             <div className='profile-section'>
                                 <h3 className='section-title'><CommentOutlined rev="" /> Reviews & Feedback</h3>
                                 <div className='review-list'>

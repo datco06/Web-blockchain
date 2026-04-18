@@ -7,13 +7,23 @@ import { useLocation, history } from 'umi';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { MoreOutlined, EditOutlined, RocketOutlined, FileOutlined, SolutionOutlined } from '@ant-design/icons';
 import { Modal, Input, Button, Form, message, Tag } from 'antd';
+import type { AiMilestone } from '@/services/buyer/project-breakdown/typing';
+import { useModel } from 'umi';
 
 const ProjectBreakdown = () => {
     const [dots, setDots] = useState('');
     const [aiTasks, setAiTasks] = useState<any[] | null>(null);
+
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [form] = Form.useForm();
+    const { 
+        AI_MODEL, 
+        buildBreakdownPrompt, 
+        parseAiResponse, 
+        buildPushedProject, 
+        saveProjectToStorage 
+    } = useModel('buyer.project-breakdown.index');
 
     const location = useLocation();
     const jobData = (location.state as any)?.jobData;
@@ -32,29 +42,12 @@ const ProjectBreakdown = () => {
                 if (!jobData) return;
                 const API_KEY = 'AIzaSyB36ZzvyJU22h8eiS4QMjHbIObHepbC_dk';
                 const genAI = new GoogleGenerativeAI(API_KEY);
-                const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-                const prompt = `
-                    You are an expert Project Manager. I have a project with the following details:
-                    ${JSON.stringify(jobData)}
-                    
-                    Please break down this project into logical milestones.
-                    RETURN ONLY VALID JSON. The structure must exactly match this format:
-                    [
-                       {
-                           "milestoneName": "Milestone 1: Discovery & Research",
-                           "description": "Analyze user needs and market...",
-                           "duration": "1 week",
-                           "payment": "0.3 ETH (12%)",
-                           "aiNote": "Focus on competitor analysis in the Vietnam market."
-                       }
-                    ]
-                `;
+                const model = genAI.getGenerativeModel({ model: AI_MODEL });
+                const prompt = buildBreakdownPrompt(jobData);
 
                 const result = await model.generateContent(prompt);
                 const responseText = result.response.text();
-                const jsonMatch = responseText.match(/\[[\s\S]*\]/);
-                const cleanJson = jsonMatch ? jsonMatch[0] : responseText;
-                const breakdownJson = JSON.parse(cleanJson);
+                const breakdownJson = parseAiResponse(responseText);
 
                 setAiTasks(breakdownJson);
 
@@ -84,24 +77,9 @@ const ProjectBreakdown = () => {
     const handlePushJob = async () => {
         setSubmitting(true);
         try {
-            const newProject = {
-                title: jobData.title,
-                description: jobData.description,
-                budget: jobData.budgetRange,
-                duration: jobData.duration,
-                requirements: jobData.requirements,
-                category: jobData.category,
-                milestones: aiTasks,
-                documents: jobData.documents,
-                status: 'active',
-                statusLabel: 'Active',
-                postDate: new Date().toLocaleDateString('en-US'),
-                bids: 0
-            };
-
-            const existingProjects = JSON.parse(localStorage.getItem('pushed_projects') || '[]');
-            const updatedProjects = [newProject, ...existingProjects];
-            localStorage.setItem('pushed_projects', JSON.stringify(updatedProjects));
+            if (!aiTasks) return;
+            const newProject = buildPushedProject(jobData, aiTasks);
+            saveProjectToStorage(newProject);
 
             message.success("Project pushed successfully!");
             setTimeout(() => {
@@ -163,7 +141,6 @@ const ProjectBreakdown = () => {
                                 ))}
                             </div>
 
-                            {/* SUPPORTING DOCUMENTS SECTION */}
                             <div className="roadmap-header" style={{ marginTop: 48, borderTop: '1px solid #e2e8f0', paddingTop: 32 }}>
                                 <h2>Supporting Documents</h2>
                                 <p>Files you uploaded to help freelancers understand your requirements.</p>

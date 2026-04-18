@@ -1,7 +1,7 @@
 export default [
 	{
 		path: '/',
-		component: './index',
+		component: './Home',
 		layout: false,
 	},
 	{

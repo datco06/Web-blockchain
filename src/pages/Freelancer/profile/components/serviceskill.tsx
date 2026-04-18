@@ -1,53 +1,43 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useModel } from 'umi';
 import './serviceskill.less';
 
-interface Language {
-	id: string;
-	name: string;
-}
-
 const Serviceskill = () => {
-	const [experience, setExperience] = useState('8+ Years');
-	const [category, setCategory] = useState('UI/UX & Product Design');
-	const [skills, setSkills] = useState<string[]>(['Figma', 'Design Systems', 'React', 'User Research']);
-	const [skillInput, setSkillInput] = useState('');
+	const {
+		experience,
+		setExperience,
+		category,
+		setCategory,
+		skills,
+		addSkill,
+		removeSkill,
+		languages,
+		addLanguage,
+		removeLanguage,
+		pricing,
+		setPricing,
+		rate,
+		setRate,
+	} = useModel('freelancer.profile.index');
 
-	const [languages, setLanguages] = useState<Language[]>([
-		{ id: 'lang-1', name: 'English (Native)' },
-		{ id: 'lang-2', name: 'Spanish (Fluent)' },
-	]);
+	const [skillInput, setSkillInput]     = useState('');
 	const [languageInput, setLanguageInput] = useState('');
-
-	const [pricing, setPricing] = useState<'Hourly' | 'Fixed'>('Hourly');
-	const [rate, setRate] = useState('85');
 
 	const handleSkillSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (!skillInput.trim()) return;
-
-		setSkills((prev) => [...prev, skillInput.trim()]);
+		addSkill(skillInput);
 		setSkillInput('');
 	};
 
 	const handleLanguageSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (!languageInput.trim()) return;
-
-		setLanguages((prev) => [...prev, { id: `language-${Date.now()}`, name: languageInput.trim() }]);
+		addLanguage(languageInput);
 		setLanguageInput('');
-	};
-
-	const removeSkill = (skill: string) => {
-		setSkills((prev) => prev.filter((item) => item !== skill));
-	};
-
-	const removeLanguage = (id: string) => {
-		setLanguages((prev) => prev.filter((lang) => lang.id !== id));
 	};
 
 	return (
 		<section className='service-card'>
-			<h3>Service & Skills</h3>
+			<h3>Service &amp; Skills</h3>
 			<div className='service-grid'>
 				<div className='service-field'>
 					<label htmlFor='experience'>Years of Experience</label>
@@ -77,9 +67,7 @@ const Serviceskill = () => {
 					{skills.map((skill) => (
 						<button key={skill} className='skill-chip' type='button' onClick={() => removeSkill(skill)}>
 							{skill}
-							<span className='remove' aria-label='remove skill'>
-								×
-							</span>
+							<span className='remove' aria-label='remove skill'>×</span>
 						</button>
 					))}
 				</div>

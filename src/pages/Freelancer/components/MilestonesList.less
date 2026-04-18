@@ -1,8 +1,14 @@
-.card {
-  background: #fff;
-  border-radius: 28px;
+@yellow: #F0B90B;
+@ink:    #1E2026;
+@white:  #FFFFFF;
+@slate:  #848E9C;
+@border-light: #E6E8EA;
+
+.milestones-card {
+  background: @white;
+  border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 24px 50px rgba(13, 25, 49, 0.08);
+  border: 1px solid @border-light;
 }
 
 .card-header {
@@ -10,24 +16,39 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
-  h3 { margin: 0; font-size: 20px; color: #111936; }
-  p { margin: 4px 0 0; color: #7a849f; }
+  h3 { 
+    margin: 0; 
+    font-size: 18px; 
+    color: @ink;
+    font-weight: 700;
+  }
+  
+  p { 
+    margin: 4px 0 0; 
+    color: @slate; 
+    font-size: 14px;
+  }
 
   .link {
     border: none;
-    background: none;
-    color: #0f7bff;
+    background: transparent;
+    color: @slate;
     font-weight: 600;
     cursor: pointer;
+    transition: color 200ms ease;
+    
+    &:hover {
+      color: @yellow;
+    }
   }
 }
 
 .milestone-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .milestone-item {
@@ -35,17 +56,26 @@
   grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: 16px;
-  padding: 16px 18px;
-  border-radius: 20px;
-  background: #f8f9fc;
+  padding: 16px;
+  border-radius: 8px;
+  background: #F8F9FA;
+  border: 1px solid transparent;
+  transition: all 200ms ease;
+  cursor: pointer;
+
+  &:hover {
+    background: @white;
+    border-color: @border-light;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
 }
 
 .milestone-avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 16px;
-  background: #111936;
-  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: @ink;
+  color: @yellow;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,27 +84,38 @@
 
 .milestone-body h4 {
   margin: 0 0 4px;
-  font-size: 16px;
-  color: #111936;
+  font-size: 15px;
+  color: @ink;
+  font-weight: 600;
 }
 
 .milestone-body p {
   margin: 0;
-  color: #7a849f;
-  font-size: 14px;
+  color: @slate;
+  font-size: 13px;
 }
 
 .milestone-amount {
   text-align: right;
 
-  strong { display: block; font-size: 16px; color: #111936; }
-  span { font-size: 13px; }
+  strong { 
+    display: block; 
+    font-size: 15px; 
+    color: @ink; 
+  }
+  
+  span { 
+    font-size: 12px; 
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+  }
 
-  .warning { color: #ff7a45; }
-  .success { color: #1da885; }
+  .warning { color: #F0B90B; }
+  .success { color: #0ECB81; }
 }
 
 .chevron {
-  font-size: 24px;
-  color: #c2c9db;
+  font-size: 20px;
+  color: @border-light;
 }

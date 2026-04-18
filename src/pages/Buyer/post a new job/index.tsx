@@ -1,6 +1,4 @@
-// Remove react-router-dom import, use umi instead
 import { history } from 'umi';
-import type { UploadFile, UploadProps } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, Upload } from 'antd';
 import { useState } from 'react';
@@ -13,23 +11,8 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Dragger } = Upload;
 
-interface JobFormValues {
-	title: string;
-	category: string;
-	description: string;
-	functionality: string;
-	requirements: string;
-	duration: string;
-	budgetRange: string;
-	documents?: UploadFile[];
-}
+import type { JobFormValues } from '@/services/buyer/post-a-new-job/typing';
 
-const budgetRanges = [
-	{ label: '$3,000 – $5,000', value: '3k-5k' },
-	{ label: '$5,000 – $7,500', value: '5k-75k' },
-	{ label: '$7,500 – $10,000', value: '75k-10k' },
-	{ label: '$10,000+', value: '10k+' },
-];
 
 const CreateJob = () => {
 	const [form] = Form.useForm<JobFormValues>();
@@ -48,7 +31,7 @@ const CreateJob = () => {
 		}
 	};
 
-	const normFile: UploadProps['getValueFromEvent'] = (event) => {
+	const normFile = (event: any) => {
 		if (Array.isArray(event)) {
 			return event;
 		}

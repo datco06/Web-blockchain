@@ -1,134 +1,171 @@
-.sidebar {
-  height: 100%;
+// ── Design Tokens ─────────────────────────────────────────────────────────
+@yellow:        #F0B90B;
+@yellow-active: #D0980B;
+@ink:           #1E2026;
+@slate:         #848E9C;
+@border-light:  #E6E8EA;
+@snow:          #F5F5F5;
+@white:         #FFFFFF;
+@focus-blue:    #1EAEDB;
+
+.freelancer-sidebar {
   display: flex;
   flex-direction: column;
-  padding: 36px 28px;
-  background: #f6f8fb;
-  border-right: 1px solid #e4e9f3;
-}
+  height: 100vh;
+  background: @white; // Changed to white background
+  padding: 32px 24px;
+  position: sticky;
+  top: 0;
+  border-right: 1px solid @border-light; // Changed to light border
 
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
+  // ── Brand mark ─────────────────────────────────────────────────────────
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+
+    strong {
+      font-size: 18px;
+      color: @ink; // Changed to dark text
+    }
+  }
 
   .brand-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #147bff, #0055ff);
-    color: #fff;
-    display: inline-flex;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 6px !important;
+    background: @yellow !important;
+    color: @ink !important;
+    font-size: 13px !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
   }
 
-  strong {
-    font-size: 18px;
-    color: #111936;
-  }
-}
-
-.sidebar.dark {
-  background: #0b1120;
-  border-right-color: rgba(148, 163, 184, 0.15);
-
-  .sidebar-brand strong {
-    color: #f8fafc;
-  }
-
+  // ── Menu items — compact size ───────────────────────────────────────────
   .menu-heading {
-    color: rgba(148, 163, 184, 0.85);
-  }
-
-  .ant-menu {
-    color: #cbd5f5;
-  }
-
-  .ant-menu-item {
-    color: #cbd5f5;
-
-    .ant-menu-item-icon {
-      background: rgba(148, 163, 184, 0.12);
-      color: #cbd5f5;
-    }
-  }
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  .menu-heading {
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
+    color: @slate;
     font-size: 12px;
-    color: #9aa7c3;
-    font-weight: 600;
+    margin-bottom: 12px;
+    padding-left: 10px;
+  }
+
+  .sidebar-menu {
+    flex: 1;
   }
 
   .ant-menu {
-    background: transparent;
-    border-inline-end: none !important;
+    background: transparent !important;
+    border-right: none !important;
   }
 
   .ant-menu-item {
-    border-radius: 14px;
-    margin-inline: 0;
-    margin-block: 2px;
-    font-weight: 600;
+    height: 40px !important;
+    line-height: 40px !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
+    width: calc(100% - 16px) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    transition: background 200ms ease, color 200ms ease !important;
 
+    // Icon wrapper — compact
     .ant-menu-item-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.06);
+      width: 24px !important;
+      height: 24px !important;
+      border-radius: 6px !important;
+      background: transparent !important;
+      margin-right: 10px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
 
       svg {
-        width: 16px;
-        height: 16px;
-        stroke: currentColor;
+        width: 16px !important;
+        height: 16px !important;
         fill: none;
-        stroke-width: 1.7;
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        stroke: currentColor;
+        stroke-width: 1.8;
       }
     }
+
+    // Normal (unselected)
+    &:not(.ant-menu-item-selected) {
+      color: @slate !important;
+    }
   }
-}
 
-.sidebar-spacer {
-  flex: 1;
-}
+  // Hover state
+  .ant-menu-item:hover:not(.ant-menu-item-selected) {
+    color: @yellow-active !important;
+    background: rgba(240, 185, 11, 0.07) !important;
 
-.sidebar-upgrade {
-  background: #e9f1ff;
-  border-radius: 22px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #31405c;
-  box-shadow: 0 12px 30px rgba(12, 49, 120, 0.12);
+    .ant-menu-item-icon { color: @yellow-active !important; }
+  }
 
-  h4 { margin: 0; font-size: 18px; color: #101a38; }
-  p { margin: 0; color: #4f5b79; line-height: 1.4; }
+  // Selected / active — yellow fill, ink text
+  .ant-menu-item-selected {
+    color: @ink !important;
+    background: @yellow !important;
+    box-shadow: rgb(153,153,153) 0px 2px 10px -3px !important;
+    font-weight: 700 !important;
+  }
 
-  button {
-    margin-top: 4px;
-    border: none;
-    border-radius: 14px;
-    padding: 10px 16px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #0c7bff, #00a3ff);
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 12px 30px rgba(0, 116, 255, 0.25);
+  // Hide right border indicator
+  .ant-menu-item-selected::after { display: none !important; }
+
+  // Icon in selected state
+  .ant-menu-item-selected .ant-menu-item-icon {
+    color: @ink !important;
+    background: transparent !important;
+  }
+
+  // ── Bottom upgrade card ────────────────────────────────────────────────
+  .sidebar-spacer {
+    flex: 1;
+  }
+
+  .sidebar-upgrade {
+    background: rgba(240, 185, 11, 0.05);
+    border: 1px solid rgba(240, 185, 11, 0.18);
+    border-radius: 10px;
+    margin: 12px;
+    padding: 16px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+      font-size: 13px !important;
+      font-weight: 700;
+      color: @ink; // Changed to dark text on light background
+      margin: 0;
+    }
+
+    p {
+      font-size: 12px;
+      color: @slate;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    button {
+      margin-top: 6px;
+      border: none;
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-weight: 700;
+      font-size: 12px;
+      background: @yellow;
+      color: @ink;
+      cursor: pointer;
+      box-shadow: rgb(153,153,153) 0px 2px 10px -3px;
+      transition: background 200ms ease, color 200ms ease;
+
+      &:hover { background: @focus-blue; color: @white; }
+    }
   }
 }

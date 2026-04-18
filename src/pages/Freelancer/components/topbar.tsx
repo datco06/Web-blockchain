@@ -6,11 +6,9 @@ interface TopBarProps {
 }
 
 const TopBar = (_props: TopBarProps) => {
-	// 2. Khai báo state và ref
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	// 3. Logic đóng dropdown khi click ra ngoài vùng avatar
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -49,7 +47,6 @@ const TopBar = (_props: TopBarProps) => {
 					</svg>
 				</button>
 
-				{/* 4. Bọc Avatar trong một container và thêm sự kiện onClick */}
 				<div className='avatar-container' ref={dropdownRef}>
 					<div
 						className='avatar'
@@ -59,7 +56,6 @@ const TopBar = (_props: TopBarProps) => {
 						<span>AX</span>
 					</div>
 
-					{/* 5. Giao diện Dropdown hiển thị khi state chuyển thành true */}
 					{isDropdownOpen && (
 						<div className='avatar-dropdown'>
 

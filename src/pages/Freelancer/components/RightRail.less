@@ -1,53 +1,162 @@
-.right-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+@yellow: #F0B90B;
+@ink:    #1E2026;
+@white:  #FFFFFF;
+@slate:  #848E9C;
+@border-light: #E6E8EA;
+@snow:   #F5F5F5;
+
+.right-module {
+  background: @white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid @border-light;
+  margin-bottom: 24px;
 }
 
-.profile-card {
-  border-radius: 28px;
-  padding: 24px;
-  background: linear-gradient(135deg, #287dff, #1b49f7);
-  color: #eaf2ff;
-  box-shadow: 0 35px 60px rgba(10, 54, 169, 0.3);
-
-  p { margin: 0 0 8px; }
-  h3 { margin: 0 0 12px; font-size: 26px; color: #fff; }
-
-  .progress {
-    height: 8px;
+.profile-strength {
+  .label {
+    color: @slate;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  h3 {
+    color: @ink;
+    font-size: 24px;
+    margin: 0 0 16px;
+  }
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    background: @snow;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.25);
+    overflow: hidden;
     margin-bottom: 16px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: @yellow;
+    border-radius: 999px;
+  }
+  .metadata {
+    color: @slate;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .portfolio-btn {
+    width: 100%;
+    background: @white;
+    color: @ink;
+    border: 1px solid @border-light;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 200ms ease;
+    
+    &:hover {
+      background: @snow;
+      border-color: @slate;
+    }
+    
+    &.outline:hover {
+      color: @yellow;
+      border-color: @yellow !important;
+    }
+  }
+}
 
-    .bar {
-      width: 70%;
-      height: 100%;
-      border-radius: 999px;
-      background: #fff;
+.module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    color: @ink;
+    font-weight: 700;
+  }
+
+  .view-all {
+    color: @slate;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    
+    &:hover { color: @yellow; }
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: @border-light;
+  }
+}
+
+.timeline-event {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+
+  .event-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: @white;
+    border: 2px solid @border-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: @slate;
+
+    svg {
+      width: 18px;
+      height: 18px;
     }
   }
 
-  button {
-    margin-top: 12px;
-    width: 100%;
-    border: none;
-    border-radius: 14px;
-    padding: 12px 0;
-    font-weight: 600;
-    color: #1b49f7;
-    background: #fff;
-    cursor: pointer;
+  &.active .event-icon {
+    border-color: @yellow;
+    background: @yellow;
+    color: @ink;
   }
-}
 
-.jobs-card {
-  border-radius: 28px;
-  background: #fff;
-  padding: 24px;
-  box-shadow: 0 24px 50px rgba(13, 25, 49, 0.08);
+  .event-content {
+    flex: 1;
+    padding-top: 4px;
 
-  header h3 { margin: 0 0 16px; }
+    h4 {
+      margin: 0 0 4px;
+      color: @ink;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 4px;
+      color: @slate;
+      font-size: 14px;
+    }
+
+    span {
+      color: #A0ABC0;
+      font-size: 12px;
+    }
+  }
 }
 
 .jobs-list {
@@ -56,52 +165,48 @@
   gap: 16px;
 }
 
-.jobs-list article {
-  padding: 18px;
-  border-radius: 20px;
-  background: #f8f9fc;
-}
-
-.job-meta {
+.job-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid @border-light;
+  transition: all 200ms ease;
 
-  .pill {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    color: #4a7bff;
-    background: rgba(74, 123, 255, 0.15);
-    padding: 4px 10px;
-    border-radius: 999px;
+  &:hover {
+    background: #F5F5F5;
   }
 
-  .time { color: #96a0b9; font-size: 12px; }
-}
+  .job-info {
+    h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      color: @ink;
+      font-weight: 600;
+    }
+    span {
+      font-size: 13px;
+      color: @slate;
+    }
+  }
 
-.jobs-list h4 {
-  margin: 0 0 6px;
-  color: #111936;
-}
+  .job-meta {
+    text-align: right;
 
-.jobs-list p {
-  margin: 0 0 12px;
-  color: #707b96;
-}
-
-.jobs-list strong {
-  color: #0e1d3c;
-}
-
-.jobs-card .outline {
-  margin-top: 16px;
-  width: 100%;
-  border-radius: 18px;
-  border: 1px solid #dfe3f4;
-  background: #f9fbff;
-  padding: 12px 0;
-  font-weight: 600;
+    strong {
+      display: block;
+      color: @ink;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    span {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(240, 185, 11, 0.1);
+      color: @yellow;
+      font-weight: 600;
+    }
+  }
 }

@@ -1,11 +1,4 @@
-interface OverviewStat {
-	key: string;
-	label: string;
-	value: string;
-	chip?: string;
-	icon: 'jobs' | 'proposals' | 'escrow' | 'messages';
-	tone?: 'positive' | 'warning' | 'secure' | 'info';
-}
+import type { OverviewStat } from '@/services/buyer/overview/typing';
 
 const iconMap: Record<OverviewStat['icon'], JSX.Element> = {
 	jobs: (
@@ -50,5 +43,4 @@ const OverviewCards = ({ stats }: { stats: OverviewStat[] }) => (
 	</div>
 );
 
-export type { OverviewStat };
 export default OverviewCards;

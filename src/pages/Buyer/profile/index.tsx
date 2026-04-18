@@ -3,12 +3,13 @@ import { Button, message } from 'antd';
 import './index.less';
 import Sidebar from '../components/sidebar';
 import TopBar from '../components/topbar';
-
+import { useModel } from 'umi';
 const Profile = () => {
+    const { profileStats, validateAvatarFile } = useModel('buyer.profile.index');
     const [loading, setloading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
-    const [FormValues, setFormValues] = useState({
+    const [FormValues, setFormValues] = useState<ProfileFormValues>({
         Name: '',
         Email: '',
         Phone: '',
@@ -26,8 +27,9 @@ const Profile = () => {
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            if (file.size > 2 * 1024 * 1024) {
-                message.error('Image must be smaller than 2MB!');
+            const error = validateAvatarFile(file);
+            if (error) {
+                message.error(error);
                 return;
             }
             const url = URL.createObjectURL(file);
@@ -119,26 +121,15 @@ const Profile = () => {
                                 </div>
                             </div>
 
-                            {/* STATISTICS SECTION */}
                             <div className="stats-container">
-                                <div className="stat-card">
-                                    <span className="stat-label">Total Spent</span>
-                                    <h3 className="stat-value">$14,250.00</h3>
-                                </div>
-                                <div className="stat-card">
-                                    <span className="stat-label">Disbursement Rate</span>
-                                    <h3 className="stat-value">85.4%</h3>
-                                </div>
-                                <div className="stat-card">
-                                    <span className="stat-label">Feedback</span>
-                                    <h3 className="stat-value">
-                                        <span style={{ color: '#10b981', marginRight: 10 }}>👍 124</span> 
-                                        <span style={{ color: '#ef4444' }}>👎 2</span>
-                                    </h3>
-                                </div>
+                                {profileStats.map((stat, idx) => (
+                                    <div className="stat-card" key={idx}>
+                                        <span className="stat-label">{stat.label}</span>
+                                        <h3 className="stat-value">{stat.value}</h3>
+                                    </div>
+                                ))}
                             </div>
 
-                            {/* NARROW 1-COLUMN FORM (LÚC ĐẦU) */}
                             <div className='fields narrow-grid'>
                                 <label>
                                     <span>Full Name</span>

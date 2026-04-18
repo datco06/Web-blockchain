@@ -1,9 +1,4 @@
-interface Message {
-	name: string;
-	time: string;
-	snippet: string;
-	avatar: string;
-}
+import type { Message } from '@/services/buyer/messages/typing';
 
 const RecentMessages = ({ messages }: { messages: Message[] }) => (
 	<section className='recent-messages'>
@@ -33,5 +28,4 @@ const RecentMessages = ({ messages }: { messages: Message[] }) => (
 	</section>
 );
 
-export type { Message };
 export default RecentMessages;

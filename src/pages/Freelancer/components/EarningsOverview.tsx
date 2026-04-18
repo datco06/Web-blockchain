@@ -4,19 +4,19 @@ const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'];
 const values = [40, 65, 95, 55, 70, 60];
 
 const EarningsOverview = () => (
-	<section className='card chart-card'>
-		<header className='card-header'>
+	<section className='earnings-overview'>
+		<header className='chart-header'>
 			<h3>Earnings Overview</h3>
-			<select>
-				<option>Last 6 Months</option>
-				<option>Last 12 Months</option>
-			</select>
+			<div className='chart-filters'>
+				<button className='filter-btn active'>Last 6 Months</button>
+				<button className='filter-btn'>Last 12 Months</button>
+			</div>
 		</header>
-		<div className='chart-bars'>
+		<div className='chart-body'>
 			{values.map((height, index) => (
-				<div key={months[index]} className='chart-bar'>
-					<div className='bar' style={{ height: `${height}%` }} />
-					<span>{months[index]}</span>
+				<div key={months[index]} className='bar-wrapper'>
+					<div className='bar' style={{ height: `${height}%`, width: '100%', minHeight: '4px' }} />
+					<span className='month'>{months[index]}</span>
 				</div>
 			))}
 		</div>

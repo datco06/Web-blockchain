@@ -91,11 +91,7 @@ const Sidebar = ({ active = 'dashboard' }: SidebarProps) => {
 			</div>
 
 			<div className='sidebar-spacer' />
-			<div className='sidebar-upgrade'>
-				<h4>Invite collaborators</h4>
-				<p>Share access with your finance team to approve releases faster.</p>
-				<button>Invite team</button>
-			</div>
+
 		</div>
 	);
 };

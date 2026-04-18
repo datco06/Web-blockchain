@@ -14,34 +14,37 @@ interface RightRailProps {
 
 const RightRail = ({ jobs }: RightRailProps) => (
 	<div className='right-rail'>
-		<section className='profile-card'>
-			<p>Profile Strength</p>
+		<section className='right-module profile-strength'>
+			<p className='label'>Profile Strength</p>
 			<h3>Expert</h3>
-			<div className='progress'>
-				<div className='bar' />
+			<div className='progress-track'>
+				<div className='progress-bar' style={{ width: '85%' }} />
 			</div>
-			<p>Your profile visibility is up by 40% this week. Add a new portfolio item to hit 100%.</p>
-			<button>Update Portfolio</button>
+			<p className='metadata'>Your profile visibility is up by 40% this week. Add a new portfolio item to hit 100%.</p>
+			<button className='portfolio-btn'>Update Portfolio</button>
 		</section>
 
-		<section className='jobs-card'>
-			<header>
+		<section className='right-module'>
+			<div className='module-header'>
 				<h3>Jobs You Might Like</h3>
-			</header>
+			</div>
 			<div className='jobs-list'>
 				{jobs.map((job) => (
-					<article key={job.title}>
-						<div className='job-meta'>
-							<span className='pill'>{job.type}</span>
-							<span className='time'>{job.timestamp}</span>
+					<article key={job.title} className='job-item'>
+						<div className='job-info'>
+							<h4>{job.title}</h4>
+							<p className='metadata'>{job.description}</p>
 						</div>
-						<h4>{job.title}</h4>
-						<p>{job.description}</p>
-						<strong>{job.budget}</strong>
+						<div className='job-meta'>
+							<strong>{job.budget}</strong>
+							<span>{job.type}</span>
+						</div>
 					</article>
 				))}
 			</div>
-			<button className='outline'>Browse All Jobs</button>
+			<button className='portfolio-btn outline' style={{marginTop: '16px', border: '1px solid #E6E8EA', background: 'transparent'}}>
+				Browse All Jobs
+			</button>
 		</section>
 	</div>
 );

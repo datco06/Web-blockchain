@@ -1,10 +1,7 @@
-import { ConfigProvider, Layout, Menu } from 'antd';
+import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
-import type { ConfigProviderProps } from 'antd/lib/config-provider';
 import type { ReactNode } from 'react';
 import './Sidebar.less';
-
-const { Sider } = Layout;
 
 interface SidebarProps {
 	active?: string;
@@ -16,38 +13,40 @@ type IconName = 'dashboard' | 'profile' | 'briefcase' | 'wallet' | 'message' | '
 const iconMap: Record<IconName, ReactNode> = {
 	dashboard: (
 		<svg viewBox='0 0 24 24'>
-			<path d='M3 13h7V3H3zm11 8h7v-8h-7zM3 21h7v-6H3zm11-10h7V3h-7z' />
+			<rect x='3' y='3' width='7' height='7' rx='1.5' />
+			<rect x='14' y='3' width='7' height='7' rx='1.5' />
+			<rect x='14' y='14' width='7' height='7' rx='1.5' />
+			<rect x='3' y='14' width='7' height='7' rx='1.5' />
 		</svg>
 	),
 	profile: (
 		<svg viewBox='0 0 24 24'>
-			<circle cx='12' cy='8' r='3' />
-			<path d='M5 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1' />
+			<path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' />
+			<circle cx='12' cy='7' r='4' />
 		</svg>
 	),
 	briefcase: (
 		<svg viewBox='0 0 24 24'>
-			<path d='M4 7h16v12H4z' />
-			<path d='M9 7V5h6v2' />
-			<path d='M4 12h16' />
+			<rect x='2' y='7' width='20' height='14' rx='2' />
+			<path d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16' />
 		</svg>
 	),
 	wallet: (
 		<svg viewBox='0 0 24 24'>
-			<rect x='3' y='6' width='18' height='12' rx='2' />
-			<path d='M16 12h5' />
-			<circle cx='17' cy='12' r='1' />
+			<path d='M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4' />
+			<path d='M4 6v12c0 1.1.9 2 2 2h14v-4' />
+			<path d='M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h2v-4z' />
 		</svg>
 	),
 	message: (
 		<svg viewBox='0 0 24 24'>
-			<path d='M4 5h16v12H7l-3 3z' />
+			<path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' />
 		</svg>
 	),
 	settings: (
 		<svg viewBox='0 0 24 24'>
-			<circle cx='12' cy='12' r='1.5' />
-			<path d='M19.4 15a7.8 7.8 0 0 0 .1-6l2.1-1.7-2-3.4-2.5 1a8.1 8.1 0 0 0-5.8 0l-2.5-1-2 3.4 2.1 1.7a7.8 7.8 0 0 0 0 6L4.7 16.7l2 3.4 2.5-1a8.1 8.1 0 0 0 5.8 0l2.5 1 2-3.4Z' />
+			<circle cx='12' cy='12' r='3' />
+			<path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z' />
 		</svg>
 	),
 };
@@ -66,24 +65,7 @@ const menuItems: MenuItem[] = [
 	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
 ];
 
-const Sidebar = ({ active = 'dashboard', appearance = 'dark' }: SidebarProps) => {
-	const themeConfig: ConfigProviderProps['theme'] =
-		appearance === 'dark'
-			? {
-					primaryColor: '#2563eb',
-					infoColor: '#94a3b8',
-					successColor: '#22c55e',
-					warningColor: '#f97316',
-					errorColor: '#ef4444',
-			  }
-			: {
-					primaryColor: '#2563eb',
-					infoColor: '#475569',
-					successColor: '#16a34a',
-					warningColor: '#d97706',
-					errorColor: '#dc2626',
-			  };
-
+const Sidebar = ({ active = 'dashboard', appearance = 'light' }: SidebarProps) => {
 	const items: MenuProps['items'] = menuItems.map((item) => ({
 		key: item.key,
 		icon: iconMap[item.icon],
@@ -98,38 +80,23 @@ const Sidebar = ({ active = 'dashboard', appearance = 'dark' }: SidebarProps) =>
 	};
 
 	return (
-		<ConfigProvider theme={themeConfig}>
-			<Layout hasSider className='sidebar-layout'>
-				<Sider
-					width={264}
-					breakpoint='lg'
-					collapsedWidth={84}
+		<div className={`sidebar freelancer-sidebar ${appearance}`}>
+			<div className='sidebar-brand'>
+				<div className='brand-icon'>TF</div>
+				<strong>TrustFlow</strong>
+			</div>
+			<div className='sidebar-menu'>
+				<p className='menu-heading'>Main Menu</p>
+				<Menu
+					mode='inline'
 					theme={appearance}
-					className={`sidebar ${appearance}`}
-				>
-					<div className='sidebar-brand'>
-						<div className='brand-icon'>TF</div>
-						<strong>TrustFlow</strong>
-					</div>
-					<div className='sidebar-menu'>
-						<p className='menu-heading'>Main Menu</p>
-						<Menu
-							mode='inline'
-							theme={appearance}
-							items={items}
-							selectedKeys={[active]}
-							onClick={handleMenuClick}
-						/>
-					</div>
-					<div className='sidebar-spacer' />
-					<div className='sidebar-upgrade'>
-						<h4>Upgrade to Pro</h4>
-						<p>Get 0% service fees and priority bidding.</p>
-						<button>Go Pro Now</button>
-					</div>
-				</Sider>
-			</Layout>
-		</ConfigProvider>
+					items={items}
+					selectedKeys={[active]}
+					onClick={handleMenuClick}
+				/>
+			</div>
+			<div className='sidebar-spacer' />
+		</div>
 	);
 };
 

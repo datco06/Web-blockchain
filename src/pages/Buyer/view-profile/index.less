@@ -1,309 +1,355 @@
+// ── Design Tokens ─────────────────────────────────────────────────────────
+@yellow:        #F0B90B;
+@yellow-active: #D0980B;
+@ink:           #1E2026;
+@slate:         #848E9C;
+@border-light:  #E6E8EA;
+@snow:          #F5F5F5;
+@white:         #FFFFFF;
+@green:         #0ECB81;
+@focus-blue:    #1EAEDB;
+
+// ── View Profile shell ────────────────────────────────────────────────────
 .view-shell {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 100vh;
-    background: #f4f6fb;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: @snow;
 }
 
 .view-man {
-    background: #f4f6fb;
-    min-height: 100vh;
+  background: @snow;
+  min-height: 100vh;
 }
 
+// ── Profile wrapper ───────────────────────────────────────────────────────
 .view-profile-wrapper {
-    background: #fff;
-    min-height: 100vh;
-    
-    .profile-banner {
-        height: 240px;
-        position: relative;
-        overflow: visible;
-        background-size: cover;
-        background-position: center;
-        background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80');
+  background: @white;
+  min-height: 100vh;
 
-        .profile-avatar-wrapper {
-            position: absolute;
-            bottom: -60px;
-            left: 40px;
-            
-            .avatar-img {
-                width: 160px;
-                height: 160px;
-                border: 6px solid #fff;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                object-fit: cover;
-            }
-        }
+  .profile-banner {
+    height: 200px;
+    position: relative;
+    overflow: visible;
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80');
+
+    // Yellow tint overlay
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(240, 185, 11, 0.15);
     }
 
-    .profile-main-area {
-        padding: 80px 40px 40px;
+    .profile-avatar-wrapper {
+      position: absolute;
+      bottom: -50px;
+      left: 32px;
+      z-index: 2;
+
+      .avatar-img {
+        width: 120px;
+        height: 120px;
+        border: 4px solid @white;
+        border-radius: 12px;
+        box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .profile-main-area {
+    padding: 70px 32px 32px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 32px;
+  }
+
+  // ── Left sidebar ───────────────────────────────────────────────────────
+  .profile-sidebar-content {
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+
+      .contact-btn {
+        flex: 1;
+        height: 40px;
+        font-weight: 600;
+        font-size: 13px;
+        background: @yellow !important;
+        border-color: @yellow !important;
+        color: @ink !important;
+        border-radius: 50px !important;
+        box-shadow: rgb(153,153,153) 0px 2px 10px -3px;
+        transition: background 200ms ease !important;
+
+        &:hover {
+          background: @focus-blue !important;
+          border-color: @focus-blue !important;
+          color: @white !important;
+        }
+      }
+
+      .share-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50% !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: @snow !important;
+        border: 1px solid @border-light !important;
+        color: @slate !important;
+        transition: border-color 200ms ease, color 200ms ease !important;
+
+        &:hover {
+          border-color: @yellow !important;
+          color: @yellow-active !important;
+          background: rgba(240, 185, 11, 0.06) !important;
+        }
+      }
+    }
+
+    .verification-box {
+      background: @white;
+      border: 1px solid @border-light;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+
+      h3 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: @ink;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .verify-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        &:last-of-type { margin-bottom: 0; }
+
+        .verify-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: @slate;
+          font-size: 13px;
+          font-weight: 500;
+
+          svg { color: @yellow-active; }
+        }
+
+        .verify-status {
+          font-size: 12px;
+          font-weight: 600;
+          color: @slate;
+
+          &.is-verified { color: @green; }
+        }
+      }
+
+      .verify-stats {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid @border-light;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .stat-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+
+          .label { color: @slate; font-weight: 500; }
+          .value { color: @ink; font-weight: 700; }
+        }
+      }
+    }
+  }
+
+  // ── Right content ──────────────────────────────────────────────────────
+  .profile-details-content {
+    .profile-header-info {
+      margin-bottom: 32px;
+
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: @ink;
+        margin: 0 0 6px;
+        line-height: 1.1;
+      }
+
+      .username {
+        font-size: 15px;
+        color: @slate;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+
+      .rating-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .stars { color: @yellow; font-size: 16px; }
+
+        .reviews-count {
+          color: @slate;
+          font-weight: 600;
+          font-size: 13px;
+        }
+
+        .join-date {
+          color: @slate;
+          font-size: 12px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+      }
+    }
+
+    .profile-section {
+      margin-bottom: 36px;
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: @ink;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .bio-text {
+        font-size: 14px;
+        line-height: 1.7;
+        color: @slate;
+        font-weight: 500;
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .skill-tag {
+          padding: 4px 14px;
+          background: rgba(240, 185, 11, 0.08);
+          border: 1px solid rgba(240, 185, 11, 0.25);
+          border-radius: 50px;
+          font-size: 12px;
+          font-weight: 600;
+          color: @yellow-active;
+          cursor: pointer;
+          transition: background 200ms ease;
+
+          &:hover { background: @yellow; color: @ink; }
+        }
+      }
+
+      .portfolio-grid {
         display: grid;
-        grid-template-columns: 320px 1fr;
-        gap: 48px;
-    }
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
 
-    /* LEFT SIDEBAR */
-    .profile-sidebar-content {
-        .action-buttons {
+        .portfolio-item {
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid @border-light;
+          transition: box-shadow 200ms ease;
+
+          &:hover { box-shadow: rgba(8,8,8,0.05) 0px 3px 5px 5px; }
+
+          .portfolio-img {
+            width: 100%;
+            height: 160px;
+            background: @snow;
+            background-size: cover;
+            background-position: center;
+          }
+
+          .portfolio-info {
+            padding: 14px;
+            h4 { font-weight: 700; color: @ink; margin-bottom: 4px; font-size: 14px; }
+            p  { font-size: 12px; color: @slate; margin: 0; }
+          }
+        }
+      }
+
+      .review-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .review-item {
+          display: flex;
+          gap: 14px;
+
+          .buyer-avatar {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 8px;
+            background: rgba(240, 185, 11, 0.10);
+            color: @yellow-active;
             display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-            
-            .contact-btn {
-                flex: 1;
-                height: 48px;
-                font-weight: 600;
-                background: #e11d48;
-                border-color: #e11d48;
-                border-radius: 8px;
-                
-                &:hover {
-                    background: #be123c;
-                    border-color: #be123c;
-                }
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+          }
+
+          .review-content {
+            flex: 1;
+
+            .review-header {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 3px;
+
+              h5 { font-weight: 700; margin: 0; color: @ink; font-size: 13px; }
+              .stars { color: @yellow; font-size: 12px; }
             }
-            
-            .share-btn {
-                width: 48px;
-                height: 48px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #f1f5f9;
-                border: 1px solid #e2e8f0;
-                color: #475569;
-                
-                &:hover {
-                    background: #e2e8f0;
-                }
+
+            .review-date {
+              font-size: 11px;
+              color: @slate;
+              font-weight: 500;
+              margin-bottom: 6px;
             }
+
+            .review-txt {
+              font-size: 13px;
+              color: @slate;
+              font-weight: 500;
+              line-height: 1.6;
+            }
+          }
         }
-
-        .verification-box {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 24px;
-            
-            h3 {
-                font-size: 16px;
-                font-weight: 700;
-                margin-bottom: 20px;
-                color: #0f172a;
-            }
-
-            .verify-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 16px;
-                
-                &:last-child { margin-bottom: 0; }
-
-                .verify-label {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    color: #475569;
-                    font-size: 14px;
-                    
-                    svg { color: #2563eb; }
-                }
-                
-                .verify-status {
-                    font-size: 13px;
-                    color: #94a3b8;
-                    font-weight: 500;
-                    
-                    &.is-verified {
-                        color: #059669;
-                    }
-                }
-            }
-            
-            .verify-stats {
-                margin-top: 24px;
-                padding-top: 24px;
-                border-top: 1px solid #f1f5f9;
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-                
-                .stat-row {
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 14px;
-                    
-                    .label { color: #64748b; }
-                    .value { color: #0f172a; font-weight: 600; }
-                }
-            }
-        }
+      }
     }
-
-    /* RIGHT CONTENT */
-    .profile-details-content {
-        .profile-header-info {
-            margin-bottom: 40px;
-            
-            h1 {
-                font-size: 36px;
-                font-weight: 800;
-                color: #0f172a;
-                margin: 0 0 8px 0;
-            }
-            
-            .username {
-                font-size: 18px;
-                color: #64748b;
-                margin-bottom: 16px;
-            }
-
-            .rating-row {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                
-                .stars {
-                    color: #f59e0b;
-                    font-size: 20px;
-                }
-                
-                .reviews-count {
-                    color: #475569;
-                    font-weight: 600;
-                }
-                
-                .join-date {
-                    color: #94a3b8;
-                    font-size: 14px;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                }
-            }
-        }
-
-        .profile-section {
-            margin-bottom: 48px;
-            
-            .section-title {
-                font-size: 20px;
-                font-weight: 700;
-                color: #0f172a;
-                margin-bottom: 16px;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            
-            .bio-text {
-                font-size: 16px;
-                line-height: 1.8;
-                color: #334155;
-            }
-
-            .skills-list {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                
-                .skill-tag {
-                    padding: 6px 16px;
-                    background: #f8fafc;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 20px;
-                    font-size: 14px;
-                    color: #475569;
-                    cursor: pointer;
-                    
-                    &:hover {
-                        background: #f1f5f9;
-                        border-color: #cbd5e1;
-                    }
-                }
-            }
-
-            .portfolio-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-                
-                .portfolio-item {
-                    border-radius: 12px;
-                    overflow: hidden;
-                    border: 1px solid #e2e8f0;
-                    
-                    .portfolio-img {
-                        width: 100%;
-                        height: 180px;
-                        background: #f1f5f9;
-                        background-size: cover;
-                        background-position: center;
-                    }
-                    
-                    .portfolio-info {
-                        padding: 16px;
-                        h4 { font-weight: 600; margin-bottom: 4px; }
-                        p { font-size: 13px; color: #64748b; }
-                    }
-                }
-            }
-            
-            .review-list {
-                display: flex;
-                flex-direction: column;
-                gap: 32px;
-                
-                .review-item {
-                    display: flex;
-                    gap: 16px;
-                    
-                    .buyer-avatar {
-                        width: 48px;
-                        height: 48px;
-                        border-radius: 50%;
-                        background: #eef2ff;
-                        color: #2563eb;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-weight: 700;
-                        flex-shrink: 0;
-                    }
-                    
-                    .review-content {
-                        flex: 1;
-                        .review-header {
-                            display: flex;
-                            justify-content: space-between;
-                            margin-bottom: 4px;
-                            h5 { font-weight: 700; margin: 0; }
-                            .stars { color: #f59e0b; font-size: 13px; }
-                        }
-                        .review-date {
-                            font-size: 12px;
-                            color: #94a3b8;
-                            margin-bottom: 8px;
-                        }
-                        .review-txt {
-                            font-size: 14px;
-                            color: #475569;
-                            line-height: 1.6;
-                        }
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
 @media (max-width: 1024px) {
-    .view-profile-wrapper .profile-main-area {
-        grid-template-columns: 1fr;
-    }
+  .view-profile-wrapper .profile-main-area {
+    grid-template-columns: 1fr;
+    padding-top: 80px;
+  }
 }

@@ -1,28 +1,41 @@
-/* Optional: custom overrides for the Ant Design Tabs */
+// ── Design Tokens ─────────────────────────────────────────────────────────
+@yellow:        #F0B90B;
+@yellow-active: #D0980B;
+@ink:           #1E2026;
+@slate:         #848E9C;
+@border-light:  #E6E8EA;
+@snow:          #F5F5F5;
+@white:         #FFFFFF;
+@green:         #0ECB81;
+@red:           #F6465D;
+@focus-blue:    #1EAEDB;
+
+// ── Projects tabs (Ant Design override) ──────────────────────────────────
 .custom-project-tabs {
   .ant-tabs-nav {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+
+    &::before { border-bottom-color: @border-light; }
   }
-  
+
   .ant-tabs-tab {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    color: #6a7696;
-    padding: 12px 20px;
-    
-    &:hover {
-      color: #0060ff;
-    }
+    color: @slate;
+    padding: 10px 16px;
+    transition: color 200ms ease;
+
+    &:hover { color: @yellow-active; }
   }
 
   .ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #0060ff !important;
-    font-weight: 600;
+    color: @ink !important;
+    font-weight: 700 !important;
   }
 
   .ant-tabs-ink-bar {
-    background: linear-gradient(135deg, #1699ff, #0060ff);
-    height: 3px !important;
-    border-radius: 4px;
+    background: @yellow;
+    height: 2px !important;
+    border-radius: 2px;
   }
 }

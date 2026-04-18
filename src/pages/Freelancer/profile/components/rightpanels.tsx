@@ -1,18 +1,18 @@
 import './rightpanels.less';
 import { ChangeEvent, FormEvent, useState } from 'react';
-
-const history = [
-	{ title: 'Fintech App Redesign', amount: '$4,500 · 2 weeks ago', type: 'Fixed' },
-	{ title: 'Landing Page for SaaS', amount: '$1,200 · 1 month ago', type: 'Fixed' },
-	{ title: 'User Research Study', amount: '$650 · 2 months ago', type: 'Hourly' },
-];
+import { useModel } from 'umi';
 
 const RightPanels = () => {
-	const [showWalletForm, setShowWalletForm] = useState(false);
-	const [walletAddress, setWalletAddress] = useState('');
-	const [newWalletAddress, setNewWalletAddress] = useState('');
+	const {
+		workHistory,
+		walletAddress,
+		setWalletAddress,
+		links,
+		addLink,
+	} = useModel('freelancer.profile.index');
 
-	const [links, setLinks] = useState<string[]>([]);
+	const [showWalletForm, setShowWalletForm] = useState(false);
+	const [newWalletAddress, setNewWalletAddress] = useState('');
 	const [showLinkForm, setShowLinkForm] = useState(false);
 	const [linkInput, setLinkInput] = useState('');
 
@@ -25,8 +25,7 @@ const RightPanels = () => {
 
 	const handleLinkSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (!linkInput.trim()) return;
-		setLinks((prev) => [...prev, linkInput.trim()]);
+		addLink(linkInput);
 		setLinkInput('');
 		setShowLinkForm(false);
 	};
@@ -138,7 +137,7 @@ const RightPanels = () => {
 					<a className='link-button'>See All History</a>
 				</div>
 				<ul>
-					{history.map((item) => (
+					{workHistory.map((item) => (
 						<li key={item.title}>
 							<div>
 								<h5>{item.title}</h5>

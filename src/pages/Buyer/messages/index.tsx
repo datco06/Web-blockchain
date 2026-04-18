@@ -15,77 +15,17 @@ import './index.less';
 import Sidebar from '../components/sidebar';
 import TopBar from '../components/topbar';
 
-interface Message {
-    id: number;
-    text?: string;
-    image?: string;
-    sender: 'me' | 'them';
-    time: string;
-}
-
-interface Conversation {
-    id: number;
-    name: string;
-    avatar: string;
-    lastMsg: string;
-    time: string;
-    online: boolean;
-    lastActive?: string;
-    messages: Message[];
-}
-
-const MOCK_CONVERSATIONS: Conversation[] = [
-    {
-        id: 1,
-        name: 'Alex Rivera',
-        avatar: 'AR',
-        lastMsg: 'mình đã nhắn r bn nhé',
-        time: '10:45 AM',
-        online: true,
-        lastActive: new Date().toISOString(),
-        messages: [
-            { id: 1, text: 'bạn tuyển đồng đội làm aff đúng không ạ', sender: 'me', time: '10:00 AM' },
-            { id: 2, text: 'mình cũng đang tìm hiểu bạn có thể cho mình tham gia cùng với ạ', sender: 'me', time: '10:01 AM' },
-            { id: 3, text: 'B nhắn zalo mình nha 0775.601.652', sender: 'them', time: '10:05 AM' },
-            { id: 4, text: 'mình đã nhắn r bn nhé', sender: 'me', time: '10:45 AM' },
-        ]
-    },
-    {
-        id: 2,
-        name: 'Taylor Chen',
-        avatar: 'TC',
-        lastMsg: 'The project roadmap looks great!',
-        time: 'Yesterday',
-        online: false,
-        lastActive: new Date(Date.now() - 1000 * 60 * 45).toISOString(), // 45 minutes ago
-        messages: [
-            { id: 1, text: 'Hey, have you seen the new technical requirements?', sender: 'them', time: 'Yesterday' },
-            { id: 2, text: 'Yes, looking at them now. The project roadmap looks great!', sender: 'me', time: 'Yesterday' },
-        ]
-    },
-    {
-        id: 3,
-        name: 'Jordan Smith',
-        avatar: 'JS',
-        lastMsg: 'Can we schedule a call for tomorrow?',
-        time: '9:30 AM',
-        online: false,
-        lastActive: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(), // 2 days ago
-        messages: [
-            { id: 1, text: 'Can we schedule a call for tomorrow?', sender: 'them', time: '9:30 AM' },
-        ]
-    }
-];
+import { useModel } from 'umi';
+import type { ChatMessage, Conversation } from '@/services/buyer/messages/typing';
 
 const Messages = () => {
     const location = useLocation();
     const [selectedId, setSelectedId] = useState<number>((location.state as any)?.selectedId || 1);
     const [inputText, setInputText] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [conversations, setConversations] = useState<Conversation[]>(() => {
-        const saved = localStorage.getItem('buyer_conversations');
-        return saved ? JSON.parse(saved) : MOCK_CONVERSATIONS;
-    });
+    const { conversations, setConversations } = useModel('buyer.messages.index');
+    
+    const [selectedChat, setSelectedChat] = useState<Conversation | null>(conversations[0]);
     const scrollRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -126,7 +66,7 @@ const Messages = () => {
     const handleSendMessage = () => {
         if (!inputText.trim() || !activeConvo) return;
 
-        const newMessage: Message = {
+        const newMessage: ChatMessage = {
             id: Date.now(),
             text: inputText,
             sender: 'me',
@@ -157,7 +97,7 @@ const Messages = () => {
         reader.onload = (event) => {
             const base64Image = event.target?.result as string;
             
-            const newMessage: Message = {
+            const newMessage: ChatMessage = {
                 id: Date.now(),
                 image: base64Image,
                 sender: 'me',
@@ -179,7 +119,6 @@ const Messages = () => {
             setConversations(updatedConvos);
         };
         reader.readAsDataURL(file);
-        // Reset input value to allow the same file to be selected again
         e.target.value = '';
     };
 
@@ -191,7 +130,6 @@ const Messages = () => {
                 <div className='buyer-content messages-content'>
                     <div className='chat-container'>
 
-                        {/* LEFT: CONVERSATION LIST */}
                         <div className='conversation-list'>
                             <div className='list-header'>
                                 <h2>Chats</h2>
@@ -228,7 +166,6 @@ const Messages = () => {
                             </div>
                         </div>
 
-                        {/* RIGHT: CHAT BOX */}
                         {activeConvo ? (
                             <div className='chat-box'>
                                 <div className='chat-header'>

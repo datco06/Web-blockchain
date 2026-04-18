@@ -1,0 +1,948 @@
+// ── Design Tokens (DESIGN.md) ─────────────────────────────────────────────
+@yellow:        #F0B90B;
+@yellow-gold:   #FFD000;
+@yellow-active: #D0980B;
+@ink:           #1E2026;
+@primary-text:  #1E2026;
+@secondary-text:#32313A;
+@slate:         #848E9C;
+@dark-bg:       #222126;
+@dark-card:     #2B2F36;
+@white:         #FFFFFF;
+@snow:          #F5F5F5;
+@border-light:  #E6E8EA;
+@green:         #0ECB81;
+@red:           #F6465D;
+@focus-blue:    #1EAEDB;
+@font-main:     'Inter', Arial, sans-serif;
+
+// ── Base ──────────────────────────────────────────────────────────────────
+.tf-landing {
+  font-family: @font-main;
+  color: @primary-text;
+  background: @white;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  * { box-sizing: border-box; }
+}
+
+.tf-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+// ── Section helpers ───────────────────────────────────────────────────────
+.tf-section-light {
+  background: @white;
+  padding: 80px 0;
+}
+
+.tf-section-dark {
+  background: @dark-bg;
+  padding: 80px 0;
+}
+
+.section-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  font-weight: 600;
+  color: @slate;
+  margin: 0 0 16px;
+
+  &.light { color: @slate; }
+}
+
+.section-title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.0;
+  color: @primary-text;
+  margin: 0 0 16px;
+
+  &.light { color: @white; }
+}
+
+.section-sub {
+  font-size: 16px;
+  font-weight: 500;
+  color: @slate;
+  margin: 0 0 48px;
+  line-height: 1.5;
+
+  &.light { color: @slate; }
+}
+
+.accent-yellow { color: @yellow; }
+
+// ── Ticker Bar ───────────────────────────────────────────────────────────
+.ticker-bar {
+  background: @white;
+  border-bottom: 1px solid @border-light;
+  height: 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-inner {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  animation: ticker-scroll 28s linear infinite;
+  padding: 0 32px;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  .ticker-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: @slate;
+  }
+
+  .ticker-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: @primary-text;
+
+    &.positive { color: @green; }
+    &.negative { color: @red; }
+  }
+
+  .ticker-icon {
+    font-size: 11px;
+    color: @green;
+  }
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────
+.tf-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: @white;
+  border-bottom: 1px solid @border-light;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.tf-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: @yellow;
+  color: @ink;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  &.solid {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(240, 185, 11, 0.35);
+  }
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: @ink;
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: @secondary-text;
+  transition: color 200ms ease;
+  text-decoration: none;
+
+  &:hover { color: @yellow-active; }
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────
+.btn-pill {
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  font-size: 14.4px !important;
+  letter-spacing: 0.72px;
+  padding: 8px 24px !important;
+  height: auto !important;
+  line-height: 1.6 !important;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease !important;
+  border: none !important;
+  cursor: pointer;
+
+  &.btn-yellow {
+    background: @yellow !important;
+    color: @ink !important;
+    box-shadow: rgb(153,153,153) 0px 2px 10px -3px;
+
+    &:hover, &:focus {
+      background: @focus-blue !important;
+      color: @white !important;
+    }
+
+    &:active { background: @yellow-active !important; }
+  }
+
+  &.btn-outline {
+    background: @white !important;
+    color: @yellow !important;
+    border: 1px solid @yellow !important;
+    box-shadow: rgb(153,153,153) 0px 2px 10px -3px;
+
+    &:hover, &:focus {
+      background: @focus-blue !important;
+      color: @white !important;
+      border-color: @focus-blue !important;
+    }
+  }
+
+  &.btn-white-outline {
+    background: transparent !important;
+    color: @white !important;
+    border: 1px solid @white !important;
+
+    &:hover, &:focus {
+      background: @white !important;
+      color: @ink !important;
+    }
+  }
+
+  .anticon { margin-left: 6px !important; }
+}
+
+// ── Hero Section ──────────────────────────────────────────────────────────
+.tf-hero {
+  background: @white;
+  padding: 64px 0 96px;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+// Hero text
+.hero-text {
+  .hero-tag.ant-tag {
+    border-radius: 50px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    background: rgba(240, 185, 11, 0.12);
+    color: @yellow-active;
+    border: 1px solid rgba(240, 185, 11, 0.35);
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+}
+
+.hero-headline {
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.08;
+  color: @ink;
+  margin: 0 0 20px;
+}
+
+.hero-sub {
+  font-size: 20px;
+  font-weight: 500;
+  color: @slate;
+  line-height: 1.5;
+  margin: 0 0 32px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+// Hero Visual
+.hero-visual {
+  position: relative;
+
+  .workspace-card {
+    background: @white;
+    border-radius: 12px;
+    border: 1px solid @border-light;
+    box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: box-shadow 200ms ease;
+
+    &:hover {
+      box-shadow: rgba(8, 8, 8, 0.05) 0px 3px 5px 5px;
+    }
+  }
+
+  .window-dots {
+    display: flex;
+    gap: 6px;
+
+    span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: @border-light;
+    }
+  }
+
+  .milestone-panel {
+    border-radius: 12px;
+    border: 1px solid @border-light;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 6px 0;
+      color: @ink;
+    }
+
+    .label {
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+      color: @slate;
+    }
+
+    span {
+      color: @slate;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  .status-pill {
+    border-radius: 50px;
+    background: @yellow;
+    color: @ink;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .escrow-panel {
+    border-radius: 12px;
+    border: 1px solid @border-light;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    p { color: @slate; margin: 0; font-size: 12px; font-weight: 500; }
+    strong { font-size: 24px; font-weight: 700; display: block; margin: 4px 0; color: @ink; }
+    span { color: @slate; font-size: 12px; }
+
+    .mini-dashboard {
+      width: 120px;
+      height: 90px;
+      border-radius: 8px;
+      background: @dark-bg;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mini-row {
+      display: flex;
+      gap: 4px;
+      span {
+        flex: 1;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.25);
+      }
+    }
+
+    .mini-progress {
+      flex: 1;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.12);
+
+      div {
+        width: 70%;
+        height: 6px;
+        border-radius: 6px;
+        background: @yellow;
+      }
+    }
+
+    .mini-pill {
+      align-self: flex-end;
+      border-radius: 6px;
+      padding: 2px 8px;
+      background: rgba(240, 185, 11, 0.25);
+      color: @yellow;
+      font-weight: 700;
+      font-size: 11px;
+    }
+  }
+
+  .floating-chip {
+    position: absolute;
+    bottom: -20px;
+    left: 24px;
+    background: @white;
+    padding: 10px 16px;
+    border-radius: 50px;
+    border: 1px solid @border-light;
+    box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+    font-weight: 600;
+    font-size: 12px;
+    color: @secondary-text;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    .ant-badge-status-dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+
+// ── Workflow Section ──────────────────────────────────────────────────────
+.tf-workflow {
+  text-align: center;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 0;
+  position: relative;
+}
+
+.workflow-card {
+  background: @white;
+  border: 1px solid @border-light;
+  border-radius: 12px;
+  padding: 32px 24px;
+  text-align: left;
+  box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+  position: relative;
+  transition: box-shadow 200ms ease;
+
+  &:hover {
+    box-shadow: rgba(8, 8, 8, 0.05) 0px 3px 5px 5px;
+  }
+
+  .wf-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: rgba(240, 185, 11, 0.12);
+    color: @yellow-active;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .wf-step {
+    color: @yellow;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .wf-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: @ink;
+    margin: 0 0 8px;
+  }
+
+  .wf-desc {
+    font-size: 14px;
+    font-weight: 500;
+    color: @slate;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .wf-arrow {
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    transform: translateY(-50%);
+    color: @yellow;
+    font-size: 16px;
+    z-index: 2;
+    background: @white;
+    border: 1px solid @border-light;
+    border-radius: 50%;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// ── Features Section (dark) ───────────────────────────────────────────────
+.tf-features {
+  .features-header {
+    margin-bottom: 48px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 40px;
+  }
+
+  .feature-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
+    .feat-icon-wrap {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 8px;
+      background: rgba(240, 185, 11, 0.1);
+      color: @yellow;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(240, 185, 11, 0.2);
+    }
+
+    .feat-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: @white;
+      margin: 0 0 6px;
+    }
+
+    .feat-desc {
+      font-size: 14px;
+      font-weight: 500;
+      color: @slate;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ── Platform Section (light) ──────────────────────────────────────────────
+.tf-platform {
+  text-align: center;
+  background: @snow !important;
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    margin-top: 48px;
+    text-align: left;
+  }
+
+  .plat-card {
+    background: @white;
+    border-radius: 12px;
+    border: 1px solid @border-light;
+    box-shadow: rgba(32, 32, 37, 0.05) 0px 3px 5px 0px;
+    padding: 28px;
+    overflow: hidden;
+    transition: box-shadow 200ms ease;
+
+    &:hover { box-shadow: rgba(8, 8, 8, 0.05) 0px 3px 5px 5px; }
+
+    &--hero { grid-row: span 2; }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: @ink;
+      margin: 0 0 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: @slate;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  .plat-info { margin-bottom: 20px; }
+
+  // Synthetic Dashboard
+  .dash-mock {
+    background: @dark-bg;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 200px;
+
+    .dash-top-row {
+      display: flex;
+      gap: 16px;
+
+      .dash-kpi {
+        flex: 1;
+        background: @dark-card;
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .kpi-label {
+          font-size: 10px;
+          font-weight: 600;
+          color: @slate;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+        }
+
+        .kpi-value {
+          font-size: 20px;
+          font-weight: 700;
+          color: @white;
+
+          &.accent { color: @yellow; }
+          &.green { color: @green; }
+        }
+      }
+    }
+
+    .dash-bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 80px;
+      padding: 0 4px;
+
+      .dash-bar {
+        flex: 1;
+        background: @yellow;
+        border-radius: 3px 3px 0 0;
+        opacity: 0.8;
+        transition: opacity 200ms ease;
+
+        &:nth-child(even) { opacity: 0.5; }
+        &:hover { opacity: 1; }
+      }
+    }
+  }
+
+  // Workspace mock
+  .workspace-mock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    background: @snow;
+    border-radius: 8px;
+    min-height: 100px;
+
+    .msg {
+      padding: 8px 14px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 500;
+      max-width: 80%;
+
+      &--left {
+        background: @white;
+        border: 1px solid @border-light;
+        color: @ink;
+        align-self: flex-start;
+      }
+
+      &--right {
+        background: @yellow;
+        color: @ink;
+        align-self: flex-end;
+      }
+    }
+  }
+
+  // Escrow ring
+  .escrow-mock {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px;
+
+    .escrow-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 6px solid @yellow;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(240,185,11,0.08);
+
+      span { font-size: 13px; font-weight: 700; color: @ink; }
+      small { font-size: 10px; color: @slate; }
+    }
+
+    .escrow-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: @slate;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+
+        &.yellow { background: @yellow; }
+        &.green  { background: @green; }
+      }
+    }
+  }
+}
+
+// ── Trust / Stats Section (dark) ─────────────────────────────────────────
+.tf-trust {
+  text-align: center;
+
+  .trust-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin: 0 0 48px;
+
+    .trust-stat {
+      .stat-value {
+        font-size: 34px;
+        font-weight: 700;
+        color: @yellow;
+        line-height: 1.0;
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: @slate;
+        line-height: 1.43;
+      }
+    }
+  }
+
+  .trust-cta {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────
+.tf-footer {
+  background: @dark-bg;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 0 32px;
+  color: @slate;
+  font-size: 14px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: @white;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: @slate;
+    font-size: 13px;
+  }
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+
+  button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: @slate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 200ms ease, color 200ms ease;
+
+    &:hover {
+      border-color: @yellow;
+      color: @yellow;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      stroke: none;
+      fill: currentColor;
+    }
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .hero-headline { font-size: 48px; }
+  .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+  .tf-features .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .tf-trust .trust-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-headline { font-size: 40px; }
+
+  .tf-platform .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tf-platform .plat-card--hero { grid-row: auto; }
+
+  .workflow-grid { grid-template-columns: 1fr; }
+  .wf-arrow { display: none !important; }
+
+  .tf-features .features-grid { grid-template-columns: 1fr; }
+
+  .tf-trust .trust-stats { grid-template-columns: repeat(2, 1fr); }
+
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-brand { flex-direction: column; text-align: center; }
+
+  .tf-nav__inner { padding: 0 16px; }
+  .tf-container { padding: 0 16px; }
+  .tf-section-light, .tf-section-dark { padding: 48px 0; }
+  .tf-hero { padding: 48px 0 64px; }
+}
+
+@media (max-width: 480px) {
+  .hero-headline { font-size: 32px; }
+  .hero-sub { font-size: 16px; }
+  .hero-actions { flex-direction: column; }
+
+  .nav-cta {
+    gap: 8px;
+    .btn-pill { padding: 6px 16px !important; font-size: 12px !important; }
+  }
+
+  .brand-name { display: none; }
+
+  .tf-trust .trust-stats { grid-template-columns: 1fr; }
+}

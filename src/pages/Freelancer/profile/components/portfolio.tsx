@@ -1,34 +1,19 @@
 import { FormEvent, useState } from 'react';
+import { useModel } from 'umi';
 import './portfolio.less';
 
-interface Project {
-	id: string;
-	title: string;
-	type: string;
-	link?: string;
-}
-
-const initialProjects: Project[] = [
-	{ id: 'lumina', title: 'Lumina CRM Dashboard', type: 'Product UI & Systems' },
-	{ id: 'cloudsync', title: 'CloudSync Brand Site', type: 'Marketing Experience' },
-];
-
 const Portfolio = () => {
-	const [projects, setProjects] = useState<Project[]>(initialProjects);
+	const { projects, addProject } = useModel('freelancer.profile.index');
 	const [showForm, setShowForm] = useState(false);
 	const [formValues, setFormValues] = useState({ title: '', type: '', link: '' });
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
-		const newProject: Project = {
-			id: `project-${Date.now()}`,
+		addProject({
 			title: formValues.title.trim(),
 			type: formValues.type.trim(),
 			link: formValues.link.trim(),
-		};
-
-		setProjects((prev) => [...prev, newProject]);
+		});
 		setFormValues({ title: '', type: '', link: '' });
 		setShowForm(false);
 	};
@@ -53,9 +38,7 @@ const Portfolio = () => {
 									placeholder='e.g. Nova Banking App'
 									required
 									value={formValues.title}
-									onChange={(event) =>
-										setFormValues((prev) => ({ ...prev, title: event.target.value }))
-									}
+									onChange={(event) => setFormValues((prev) => ({ ...prev, title: event.target.value }))}
 								/>
 							</label>
 							<label>
@@ -65,9 +48,7 @@ const Portfolio = () => {
 									placeholder='Product Strategy, UI/UX'
 									required
 									value={formValues.type}
-									onChange={(event) =>
-										setFormValues((prev) => ({ ...prev, type: event.target.value }))
-									}
+									onChange={(event) => setFormValues((prev) => ({ ...prev, type: event.target.value }))}
 								/>
 							</label>
 						</div>
@@ -77,9 +58,7 @@ const Portfolio = () => {
 								type='url'
 								placeholder='https://'
 								value={formValues.link}
-								onChange={(event) =>
-									setFormValues((prev) => ({ ...prev, link: event.target.value }))
-								}
+								onChange={(event) => setFormValues((prev) => ({ ...prev, link: event.target.value }))}
 							/>
 						</label>
 						<div className='form-actions'>
