@@ -8,7 +8,7 @@ interface SidebarProps {
 	appearance?: 'light' | 'dark';
 }
 
-type IconName = 'dashboard' | 'profile' | 'briefcase' | 'wallet' | 'message' | 'settings';
+type IconName = 'dashboard' | 'profile' | 'briefcase' | 'wallet' | 'message' | 'settings' | 'search';
 
 const iconMap: Record<IconName, ReactNode> = {
 	dashboard: (
@@ -49,6 +49,12 @@ const iconMap: Record<IconName, ReactNode> = {
 			<path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z' />
 		</svg>
 	),
+	search: (
+		<svg viewBox='0 0 24 24'>
+			<circle cx='11' cy='11' r='8' />
+			<line x1='21' y1='21' x2='16.65' y2='16.65' />
+		</svg>
+	),
 };
 
 type MenuItem = {
@@ -60,9 +66,11 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
 	{ key: 'dashboard', label: 'Dashboard', icon: 'dashboard', href: '/freelancer' },
+	{ key: 'find-jobs', label: 'Find Jobs', icon: 'search', href: '/freelancer/find-jobs' },
 	{ key: 'profile', label: 'Profile', icon: 'profile', href: '/freelancer/profile' },
-	{ key: 'earnings', label: 'Earnings', icon: 'wallet', href: '/freelancer/earnings' },
-	{ key: 'messages', label: 'Messages', icon: 'message', href: '#' },
+	{ key: 'active-jobs', label: 'Active Jobs', icon: 'briefcase', href: '/freelancer/active-jobs' },
+	{ key: 'messages', label: 'Messages', icon: 'message', href: '/freelancer/messages' },
+
 ];
 
 const Sidebar = ({ active = 'dashboard', appearance = 'light' }: SidebarProps) => {

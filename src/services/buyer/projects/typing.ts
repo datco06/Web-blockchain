@@ -1,5 +1,14 @@
+export enum ProjectStatus {
+  InProgress = 'in-progress',
+  Revision = 'revision',
+  Completed = 'completed',
+  Active = 'active',
+}
 
-export type ProjectStatus = 'in-progress' | 'revision' | 'completed' | 'active';
+export enum ProjectIcon {
+  Globe = 'globe',
+  Api = 'api',
+}
 
 export interface Project {
   title: string;
@@ -9,7 +18,7 @@ export interface Project {
   milestone?: string;
   progress?: number;
   budget: string;
-  icon?: 'globe' | 'api';
+  icon?: ProjectIcon;
   description?: string;
   duration?: string;
   requirements?: string;

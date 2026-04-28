@@ -6,7 +6,10 @@ export interface Message {
   avatar: string;
 }
 
-export type MessageSender = 'me' | 'them';
+export enum MessageSender {
+  Me = 'me',
+  Them = 'them',
+}
 
 export interface ChatMessage {
   id: number;

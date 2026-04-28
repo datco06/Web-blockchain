@@ -28,12 +28,6 @@ export default [
 
 	},
 	{
-		path: '/freelancer/earnings',
-		component: './Freelancer/earnings',
-		layout: false,
-
-	},
-	{
 		path: '/buyer',
 		component: './Buyer',
 		layout: false,
@@ -81,6 +75,31 @@ export default [
 	{
 		path: '/buyer/messages',
 		component: './Buyer/messages',
+		layout: false,
+	},
+	{
+		path: '/freelancer/find-jobs',
+		component: './Freelancer/find-jobs',
+		layout: false,
+	},
+	{
+		path: '/freelancer/detail',
+		component: './Freelancer/find-jobs/detail',
+		layout: false,
+	},
+	{
+		path: '/freelancer/messages',
+		component: './Freelancer/messages',
+		layout: false,
+	},
+	{
+		path: '/freelancer/active-jobs',
+		component: './Freelancer/active-jobs',
+		layout: false,
+	},
+	{
+		path: '/freelancer/active-jobs/detail/:id',
+		component: './Freelancer/active-jobs/active-detail',
 		layout: false,
 	},
 	{

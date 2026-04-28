@@ -3,7 +3,7 @@ import { useModel } from 'umi';
 import './portfolio.less';
 
 const Portfolio = () => {
-	const { projects, addProject } = useModel('freelancer.profile.index');
+	const { projects, addProject, removeProject, isEditing } = useModel('freelancer.profile.index');
 	const [showForm, setShowForm] = useState(false);
 	const [formValues, setFormValues] = useState({ title: '', type: '', link: '' });
 
@@ -22,12 +22,14 @@ const Portfolio = () => {
 		<section className='portfolio-card'>
 			<div className='portfolio-header'>
 				<h3>Portfolio</h3>
-				<button type='button' className='add-link' onClick={() => setShowForm((prev) => !prev)}>
-					{showForm ? 'Close' : '+ Add Project'}
-				</button>
+				{isEditing && (
+					<button type='button' className='add-link' onClick={() => setShowForm((prev) => !prev)}>
+						{showForm ? 'Close' : '+ Add Project'}
+					</button>
+				)}
 			</div>
 
-			{showForm && (
+			{isEditing && showForm && (
 				<div className='project-form'>
 					<form onSubmit={handleSubmit}>
 						<div className='form-grid'>
@@ -77,6 +79,18 @@ const Portfolio = () => {
 				<div className='project-grid'>
 					{projects.map((project) => (
 						<article key={project.id} className='project-card'>
+							{isEditing && (
+								<button
+									className='remove-project-btn'
+									onClick={() => removeProject(project.id)}
+									aria-label='Remove project'
+								>
+									<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+										<polyline points='3 6 5 6 21 6'></polyline>
+										<path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path>
+									</svg>
+								</button>
+							)}
 							<div className={`project-thumb ${project.id}`} />
 							<div className='project-info'>
 								<h4>{project.title}</h4>

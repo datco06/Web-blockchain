@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import {
   rawContact,
@@ -8,7 +7,6 @@ import {
 } from '@/services/freelancer/profile';
 import type {
   FreelancerContact,
-  FreelancerServiceSkill,
   Language,
   PortfolioProject,
   PricingType,
@@ -66,6 +64,7 @@ export default function useFreelancerProfileModel() {
 
   const [walletAddress, setWalletAddress] = useState('');
   const [links, setLinks] = useState<string[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const addLink = (link: string) => {
     const trimmed = link.trim();
@@ -98,5 +97,7 @@ export default function useFreelancerProfileModel() {
     setWalletAddress,
     links,
     addLink,
+    isEditing,
+    setIsEditing,
   };
 }

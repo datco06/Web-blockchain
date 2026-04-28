@@ -1,5 +1,6 @@
 
 import type { Milestone } from './typing';
+import { MilestoneStatusType } from './typing';
 
 export const rawMilestones: Milestone[] = [
   {
@@ -7,7 +8,7 @@ export const rawMilestones: Milestone[] = [
     subtitle: 'Milestone 2 · High-fidelity Wireframes',
     amount: '$1,500',
     statusText: 'Due in 2 days',
-    statusType: 'warning',
+    statusType: MilestoneStatusType.Warning,
     avatar: 'G',
   },
   {
@@ -15,7 +16,7 @@ export const rawMilestones: Milestone[] = [
     subtitle: 'Milestone 4 · API Integration',
     amount: '$2,800',
     statusText: 'Submitted',
-    statusType: 'success',
+    statusType: MilestoneStatusType.Success,
     avatar: 'S',
   },
 ];

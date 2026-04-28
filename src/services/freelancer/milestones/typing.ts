@@ -1,5 +1,9 @@
 
-export type MilestoneStatusType = 'warning' | 'success' | 'info';
+export enum MilestoneStatusType {
+  Warning = 'warning',
+  Success = 'success',
+  Info = 'info',
+}
 
 export interface Milestone {
   title: string;

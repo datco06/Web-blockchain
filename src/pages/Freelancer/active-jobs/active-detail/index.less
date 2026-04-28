@@ -1,0 +1,311 @@
+.ad-page-container {
+  padding: 40px;
+  background-color: #f8fafc; /* Light background */
+  min-height: calc(100vh - 64px);
+  color: #334155; /* Text main */
+}
+
+.ad-header {
+  margin-bottom: 24px;
+}
+
+.ad-back-link {
+  color: #64748b;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.ad-back-link:hover {
+  color: #0f172a;
+}
+
+.ad-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.02), 0 1px 2px 0 rgba(0,0,0,0.01);
+}
+
+.ad-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+.ad-card-desc {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.ad-client-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 32px;
+}
+
+.ad-client-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ad-client-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ad-client-details p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ad-client-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ad-message-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.2s;
+}
+
+.ad-message-btn:hover {
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.ad-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.ad-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.ad-tech-tags .ant-tag {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.ad-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ad-file-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ad-file-item:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.ad-file-item-icon {
+  font-size: 24px;
+  color: #64748b;
+}
+
+/* Roadmap/Task styles */
+.ad-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ad-task-item {
+  display: flex;
+  gap: 16px;
+}
+
+.ad-task-badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.ad-task-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.02);
+}
+
+.ad-task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.ad-task-title-group h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ad-task-desc {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.ad-task-meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ad-meta-tag {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.ad-ai-note {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.ad-ai-note strong {
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ad-task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+/* Status variants */
+.ad-status-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.ad-status-grey {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.ad-status-green {
+  color: #10b981;
+  font-size: 18px;
+}
+
+.ad-status-red {
+  color: #f43f5e;
+  font-weight: 600;
+  background: #ffe4e6;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ad-submit-task-btn {
+  background-color: #f0b90b !important;
+  color: #000000 !important;
+  border: none !important;
+  font-weight: 600 !important;
+  height: 40px !important;
+  padding: 0 24px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s !important;
+}
+
+.ad-submit-task-btn:hover:not([disabled]) {
+  background-color: #eab308 !important;
+}
+
+.ad-submit-task-btn:disabled {
+  background-color: #f1f5f9 !important;
+  color: #cbd5e1 !important;
+  cursor: not-allowed !important;
+}
+
+.ad-submit-task-btn.completed-btn {
+  background-color: #10b981 !important;
+  color: white !important;
+}

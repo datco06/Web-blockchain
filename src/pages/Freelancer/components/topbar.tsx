@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import './topbar.less';
 
 interface TopBarProps {
-	active?: 'dashboard' | 'profile' | 'earnings';
+	active?: 'dashboard' | 'profile' | 'find-jobs' | 'messages' | 'active-jobs';
 }
 
 const TopBar = (_props: TopBarProps) => {

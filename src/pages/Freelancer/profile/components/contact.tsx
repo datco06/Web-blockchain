@@ -3,7 +3,7 @@ import { useModel } from 'umi';
 import './contact.less';
 
 const Contact = () => {
-	const { contact, updateContact } = useModel('freelancer.profile.index');
+	const { contact, updateContact, isEditing } = useModel('freelancer.profile.index');
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const triggerFilePicker = () => {
@@ -24,9 +24,11 @@ const Contact = () => {
 		<form className='contact' onSubmit={(e) => e.preventDefault()}>
 			<div className='avatar-update'>
 				<img src={contact.avatarUrl} alt='Profile avatar preview' />
-				<button type='button' className='avatar-btn' onClick={triggerFilePicker}>
-					<span role='img' aria-label='camera'>📷</span>
-				</button>
+				{isEditing && (
+					<button type='button' className='avatar-btn' onClick={triggerFilePicker}>
+						<span role='img' aria-label='camera'>📷</span>
+					</button>
+				)}
 				<input
 					type='file'
 					accept='image/*'
@@ -38,27 +40,39 @@ const Contact = () => {
 			<div className='fields'>
 				<label>
 					<span>Display Name</span>
-					<input
-						type='text'
-						value={contact.displayName}
-						onChange={(e) => updateContact('displayName', e.target.value)}
-					/>
+					{isEditing ? (
+						<input
+							type='text'
+							value={contact.displayName}
+							onChange={(e) => updateContact('displayName', e.target.value)}
+						/>
+					) : (
+						<p className='static-text'>{contact.displayName}</p>
+					)}
 				</label>
 				<label>
 					<span>Professional Title</span>
-					<input
-						type='text'
-						value={contact.title}
-						onChange={(e) => updateContact('title', e.target.value)}
-					/>
+					{isEditing ? (
+						<input
+							type='text'
+							value={contact.title}
+							onChange={(e) => updateContact('title', e.target.value)}
+						/>
+					) : (
+						<p className='static-text'>{contact.title}</p>
+					)}
 				</label>
 				<label className='textarea'>
 					<span>Short Bio</span>
-					<textarea
-						rows={4}
-						value={contact.bio}
-						onChange={(e) => updateContact('bio', e.target.value)}
-					/>
+					{isEditing ? (
+						<textarea
+							rows={4}
+							value={contact.bio}
+							onChange={(e) => updateContact('bio', e.target.value)}
+						/>
+					) : (
+						<p className='static-text bio-text'>{contact.bio}</p>
+					)}
 				</label>
 			</div>
 		</form>

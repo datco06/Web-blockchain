@@ -1,13 +1,14 @@
 import { List, Tag } from 'antd';
 import { history } from 'umi';
 import './ActiveProjects.less';
-import type { Project, ProjectStatus } from '@/services/buyer/projects/typing';
+import type { Project } from '@/services/buyer/projects/typing';
+import { ProjectStatus } from '@/services/buyer/projects/typing';
 
 const statusTagColor: Record<ProjectStatus, string> = {
-    'in-progress': 'blue',
-    revision: 'gold',
-    completed: 'green',
-    'active': 'processing'
+    [ProjectStatus.InProgress]: 'blue',
+    [ProjectStatus.Revision]: 'gold',
+    [ProjectStatus.Completed]: 'green',
+    [ProjectStatus.Active]: 'processing'
 };
 
 const ActiveProjects = ({ projects }: { projects: Project[] }) => {

@@ -1,5 +1,5 @@
 import './index.less';
-import { useModel } from 'umi';
+import { useModel, history } from 'umi';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/topbar';
 import SummaryCards from './components/SummaryCards';
@@ -9,8 +9,12 @@ import RightRail from './components/RightRail';
 
 const Freelancer = () => {
 	const { summaryCards } = useModel('freelancer.summary.index');
-	const { milestones }   = useModel('freelancer.milestones.index');
+	const { milestones } = useModel('freelancer.milestones.index');
 	const { jobs, freelancerName } = useModel('freelancer.jobs.index');
+	const handleFindJob = () => {
+		history.push('/freelancer/find-jobs');
+
+	}
 
 	return (
 		<div className='dashboard-shell'>
@@ -27,15 +31,8 @@ const Freelancer = () => {
 								</p>
 							</div>
 							<div className='welcome-actions'>
-								<button className='ghost'>
-									<svg viewBox='0 0 24 24' aria-hidden='true'>
-										<path d='M12 5v10' />
-										<path d='M8 11l4 4 4-4' />
-										<path d='M6 19h12' />
-									</svg>
-									Statement
-								</button>
-								<button className='primary'>
+
+								<button className='primary' onClick={handleFindJob}>
 									<svg viewBox='0 0 24 24' aria-hidden='true'>
 										<circle cx='11' cy='11' r='7' />
 										<path d='m16 16 4 4' />

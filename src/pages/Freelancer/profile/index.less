@@ -1,16 +1,29 @@
+// ── Design Tokens ─────────────────────────────────────────────────────────
+@yellow:        #F0B90B;
+@yellow-active: #D0980B;
+@ink:           #1E2026;
+@dark:          #222126;
+@dark-card:     #2B2F36;
+@slate:         #848E9C;
+@border-light:  #E6E8EA;
+@snow:          #F5F5F5;
+@white:         #FFFFFF;
+@focus-blue:    #1EAEDB;
+@secondary-text:#32313A;
+
 .profile-shell {
   display: grid;
   grid-template-columns: 240px 1fr;
   min-height: 100vh;
-  background: #f4f6fb;
+  background: @snow;
 }
 
 .profile-sidebar {
-  background: #f6f8fb;
+  background: @dark;
 }
 
 .profile-main {
-  background: #f4f6fb;
+  background: @snow;
   min-height: 100vh;
 }
 
@@ -33,24 +46,26 @@
 }
 
 .edit-intro {
-  background: #fff;
-  border-radius: 30px;
+  background: @white;
+  border-radius: 12px;
   padding: 24px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+  border: 1px solid @border-light;
 }
 
 .edit-intro h1 {
   margin: 0;
   font-size: 28px;
-  color: #111936;
+  color: @ink;
+  font-weight: 700;
 }
 
 .edit-intro p {
   margin: 6px 0 0;
-  color: #6a738f;
+  color: @slate;
+  font-size: 14px;
 }
 
 .edit-actions {
@@ -60,23 +75,65 @@
 
 .edit-actions .ghost,
 .edit-actions .primary {
-  border-radius: 999px;
+  border-radius: 50px;
   padding: 10px 22px;
   font-weight: 600;
   border: 1px solid transparent;
   cursor: pointer;
+  transition: all 200ms ease;
 }
 
 .edit-actions .ghost {
-  border-color: #dfe3f4;
-  background: #fff;
-  color: #1f2b47;
+  border-color: @border-light;
+  background: @white;
+  color: @ink;
+
+  &:hover {
+    background: @snow;
+    border-color: @slate;
+  }
 }
 
 .edit-actions .primary {
-  background: linear-gradient(135deg, #1699ff, #0059ff);
-  color: #fff;
-  box-shadow: 0 15px 30px rgba(0, 94, 255, 0.28);
+  background: @yellow;
+  color: @ink;
+  box-shadow: 0px 2px 10px -3px rgba(153, 153, 153, 0.4);
+
+  &:hover {
+    background: @focus-blue;
+    color: @white;
+  }
+}
+
+// ── Global Utility Classes ──────────────────────────────────────────────
+.static-text {
+  margin: 0;
+  font-size: 15px;
+  color: @ink;
+  font-weight: 500;
+  padding: 8px 0;
+
+  &.bio-text {
+    line-height: 1.6;
+    color: @secondary-text;
+    white-space: pre-wrap;
+  }
+}
+
+.in-place-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid @yellow;
+  background: @white;
+  color: @ink;
+  font-size: 14px;
+  transition: all 200ms ease;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(240, 185, 11, 0.15);
+  }
 }
 
 @media (max-width: 1100px) {

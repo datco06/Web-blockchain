@@ -11,7 +11,10 @@ export interface Language {
   name: string;
 }
 
-export type PricingType = 'Hourly' | 'Fixed';
+export enum PricingType {
+  Hourly = 'Hourly',
+  Fixed = 'Fixed',
+}
 
 export interface FreelancerServiceSkill {
   experience: string;

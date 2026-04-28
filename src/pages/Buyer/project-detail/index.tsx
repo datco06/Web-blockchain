@@ -6,6 +6,7 @@ import '../index.less';
 import TopBar from '../components/topbar';
 import Sidebar from '../components/sidebar';
 import './index.less';
+import { MOCK_APPLIED_FREELANCERS } from '@/services/buyer/project-detail';
 
 import { useModel } from 'umi';
 
@@ -61,11 +62,6 @@ const ProjectDetail = () => {
         );
     }
 
-    const appliedFreelancers = [
-        { id: '1', name: 'Alex Johnson', role: 'Fullstack Dev', rate: '$45/hr', rating: 4.9, reviews: 32, avatar: 'A' },
-        { id: '2', name: 'Maria Garcia', role: 'UI/UX Designer', rate: '$55/hr', rating: 5.0, reviews: 15, avatar: 'M' },
-        { id: '3', name: 'Chen Wei', role: 'Backend Expert', rate: '$40/hr', rating: 4.8, reviews: 124, avatar: 'C' },
-    ];
 
     return (
         <div className='buyer-shell'>
@@ -188,7 +184,7 @@ const ProjectDetail = () => {
                         <div className='right-column'>
                             <Card className='freelancers-card' title="Applicants">
                                 <List
-                                    dataSource={appliedFreelancers}
+                                    dataSource={MOCK_APPLIED_FREELANCERS}
                                     renderItem={(item) => (
                                         <List.Item className="freelancer-item">
                                             <List.Item.Meta
