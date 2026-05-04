@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react';
-import { rawJobs, rawFreelancerName } from '@/services/freelancer/jobs';
+import { rawJobs } from '@/services/freelancer/jobs';
+import { getUser } from '@/models/Sgin-In';
 import type { Job } from '@/services/freelancer/jobs/typing.d';
 
 export default function useJobsModel() {
   const [jobs] = useState<Job[]>(rawJobs);
-  const [freelancerName] = useState<string>(rawFreelancerName);
+  const user = getUser();
+  const freelancerName = user?.name || '';
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedNiche, setSelectedNiche] = useState<string>('All');
 

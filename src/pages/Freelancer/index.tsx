@@ -27,7 +27,7 @@ const Freelancer = () => {
 							<div>
 								<h1>Welcome back, {freelancerName}! 👋</h1>
 								<p className='muted'>
-									You've reached <strong>85%</strong> of your monthly goal. Keep it up!
+									Start your first project and track your goals here.
 								</p>
 							</div>
 							<div className='welcome-actions'>

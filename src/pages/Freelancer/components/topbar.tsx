@@ -1,25 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+import useFreelancerTopbarModel from '@/models/freelancer/topbar';
+import type { TopBarProps } from '@/services/freelancer/topbar/typing.d';
 import './topbar.less';
 
-interface TopBarProps {
-	active?: 'dashboard' | 'profile' | 'find-jobs' | 'messages' | 'active-jobs';
-}
-
 const TopBar = (_props: TopBarProps) => {
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-				setIsDropdownOpen(false);
-			}
-		};
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, []);
+	const {
+		isDropdownOpen,
+		setIsDropdownOpen,
+		dropdownRef,
+		handleLogout,
+		initials,
+	} = useFreelancerTopbarModel();
 
 	return (
 		<header className='topbar'>
@@ -53,19 +43,17 @@ const TopBar = (_props: TopBarProps) => {
 						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						style={{ cursor: 'pointer' }}
 					>
-						<span>AX</span>
+						<span>{initials || 'AX'}</span>
 					</div>
 
 					{isDropdownOpen && (
 						<div className='avatar-dropdown'>
-
-
 							<ul>
-								<li><a href='/profile'>Thông tin tài khoản</a></li>
+								<li><a href='/freelancer/profile'>Account Settings</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/profile'>Trang chủ</a></li>
+								<li><a href='/'>Home</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/page/index.tsx' className='logout'>Đăng Xuất</a></li>
+								<li><button type='button' className='logout' onClick={handleLogout}>Logout</button></li>
 							</ul>
 						</div>
 					)}

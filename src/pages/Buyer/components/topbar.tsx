@@ -1,25 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+import useBuyerTopbarModel from '@/models/buyer/topbar';
+import type { TopBarProps } from '@/services/buyer/topbar/typing.d';
 import './topbar.less';
 
-interface TopBarProps {
-	active?: 'dashboard' | 'profile' | 'projects';
-}
-
 const TopBar = (_props: TopBarProps) => {
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-				setIsDropdownOpen(false);
-			}
-		};
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, []);
+	const {
+		isDropdownOpen,
+		setIsDropdownOpen,
+		dropdownRef,
+		handleLogout,
+		initials,
+	} = useBuyerTopbarModel();
 
 	return (
 		<header className='topbar'>
@@ -53,7 +43,7 @@ const TopBar = (_props: TopBarProps) => {
 						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						style={{ cursor: 'pointer' }}
 					>
-						<span>CL</span>
+						<span>{initials || 'CL'}</span>
 					</div>
 
 					{isDropdownOpen && (
@@ -61,9 +51,9 @@ const TopBar = (_props: TopBarProps) => {
 							<ul>
 								<li><a href='/buyer/profile'>Account Settings</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/buyer'>Home</a></li>
+								<li><a href='/'>Home</a></li>
 								<li className='divider-main'></li>
-								<li><a href='/page/index.tsx' className='logout'>Logout</a></li>
+								<li><button type='button' className='logout' onClick={handleLogout}>Logout</button></li>
 							</ul>
 						</div>
 					)}

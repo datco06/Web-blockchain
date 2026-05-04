@@ -1,17 +1,88 @@
 import './index.less';
+import { useState, useRef, useEffect } from 'react';
 import { history } from 'umi';
 import { Button, Tag, Badge } from 'antd';
 import {
-  SafetyCertificateFilled,
-  RobotFilled,
-  AppstoreAddOutlined,
-  MessageFilled,
-  GlobalOutlined,
-  DollarCircleFilled,
   CheckCircleFilled,
   ArrowRightOutlined,
   MailOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
+
+interface StoredUser {
+  name: string;
+  email: string;
+  role: 'freelancer' | 'buyer';
+}
+
+const NavAvatar = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [user, setUser] = useState<StoredUser | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('tf-demo-user');
+      if (raw) setUser(JSON.parse(raw));
+    } catch {}
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  if (!user) {
+    return (
+      <>
+        <a className='nav-link' href='/sign-in'>Sign Up</a>
+        <Button className='btn-pill btn-yellow' onClick={() => history.push('/login?next=buyer')}>
+          Hire Talent
+        </Button>
+        <Button className='btn-pill btn-outline' onClick={() => history.push('/login?next=freelancer')}>
+          Work as Freelancer
+        </Button>
+      </>
+    );
+  }
+
+  const initials = user.name
+    ? user.name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
+    : user.email.slice(0, 2).toUpperCase();
+
+  const handleLogout = () => {
+    localStorage.removeItem('tf-demo-user');
+    setUser(null);
+    setOpen(false);
+  };
+
+  const dashboardPath = user.role === 'freelancer' ? '/freelancer' : '/buyer';
+  const profilePath = user.role === 'freelancer' ? '/freelancer/profile' : '/buyer/profile';
+
+  return (
+    <div className='home-avatar-container' ref={ref}>
+      <div className='home-avatar' onClick={() => setOpen(!open)} title={user.name || user.email}>
+        <span>{initials}</span>
+      </div>
+      {open && (
+        <div className='home-avatar-dropdown'>
+          <div className='home-avatar-info'>
+            <strong>{user.name || user.email}</strong>
+            <small>{user.role === 'freelancer' ? 'Freelancer' : 'Buyer'}</small>
+          </div>
+          <div className='home-avatar-divider' />
+          <ul>
+            <li><a href={dashboardPath}>My Dashboard</a></li>
+            <li><a href={profilePath}>Account Settings</a></li>
+            <li className='home-avatar-divider-item' />
+            <li><button type='button' className='home-logout-btn' onClick={handleLogout}>Logout</button></li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const IconShield = () => (
   <svg viewBox='0 0 24 24' className='icon'>
@@ -141,19 +212,7 @@ const IndexPage = () => (
         </div>
 
         <div className='nav-cta'>
-          <a className='nav-link' href='/sign-in'>Sign In</a>
-          <Button
-            className='btn-pill btn-yellow'
-            onClick={() => history.push('/login?next=buyer')}
-          >
-            Hire Talent
-          </Button>
-          <Button
-            className='btn-pill btn-outline'
-            onClick={() => history.push('/login?next=freelancer')}
-          >
-            Work as Freelancer
-          </Button>
+          <NavAvatar />
         </div>
       </div>
     </header>

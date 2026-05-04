@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getUser } from '@/models/Sgin-In';
 import {
   rawContact,
   rawServiceSkill,
@@ -14,7 +15,12 @@ import type {
 } from '@/services/freelancer/profile/typing';
 
 export default function useFreelancerProfileModel() {
-  const [contact, setContact] = useState<FreelancerContact>(rawContact);
+  const currentUser = getUser();
+  const [contact, setContact] = useState<FreelancerContact>({
+    ...rawContact,
+    displayName: currentUser?.name || '',
+    email: currentUser?.email || '',
+  });
 
   const updateContact = (field: keyof FreelancerContact, value: string) => {
     setContact((prev) => ({ ...prev, [field]: value }));

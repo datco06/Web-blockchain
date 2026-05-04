@@ -174,24 +174,32 @@
       margin: 0;
       padding: 0;
 
-      a {
+      a,
+      button.logout {
         display: block;
+        width: 100%;
         padding: 12px 18px;
         color: @secondary-text;
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
+        text-align: left;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        box-sizing: border-box;
         transition: background 200ms ease, color 200ms ease;
 
         &:hover {
           background: @snow;
           color: @yellow-active;
         }
+      }
 
-        &.logout:hover {
-          background: rgba(246, 70, 93, 0.06);
-          color: @red;
-        }
+      button.logout:hover {
+        background: rgba(246, 70, 93, 0.06) !important;
+        color: @red !important;
       }
     }
   }

@@ -1,6 +1,7 @@
 
 export interface FreelancerContact {
   displayName: string;
+  email: string;
   title: string;
   bio: string;
   avatarUrl: string;

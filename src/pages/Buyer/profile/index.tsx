@@ -4,14 +4,18 @@ import './index.less';
 import Sidebar from '../components/sidebar';
 import TopBar from '../components/topbar';
 import { useModel } from 'umi';
+import { getUser } from '@/models/Sgin-In';
+
 const Profile = () => {
     const { profileStats, validateAvatarFile } = useModel('buyer.profile.index');
     const [loading, setloading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
+    const currentUser = getUser();
+
     const [FormValues, setFormValues] = useState<ProfileFormValues>({
-        Name: '',
-        Email: '',
+        Name: currentUser?.name || '',
+        Email: currentUser?.email || '',
         Phone: '',
         Bio: ''
     });
